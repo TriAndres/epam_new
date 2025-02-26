@@ -16,7 +16,7 @@ public class ArgumentFile extends ArgumentRepositoryImpl {
     public void saveF() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             for (Argument argument : findAll()) {
-                writer.write(argument.getId() + "/" + argument.getTask() + "/" + argument.getArgument());
+                writer.write(argument.toString());
                 writer.write("\n");
             }
         } catch (IOException e) {
@@ -45,8 +45,7 @@ public class ArgumentFile extends ArgumentRepositoryImpl {
                 argumentFile.save(
                         new Argument(
                            Long.parseLong(row[0]),
-                           Integer.parseInt(row[1]),
-                           String.valueOf(row[2])
+                           row[2]
                         )
                 );
             }

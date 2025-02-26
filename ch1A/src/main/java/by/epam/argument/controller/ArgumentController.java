@@ -1,7 +1,7 @@
 package by.epam.argument.controller;
 
 import by.epam.argument.file.ArgumentFile;
-import by.epam.argument.servise.ArgumentService;
+import by.epam.argument.service.ArgumentService;
 
 import static by.epam.argument.file.ArgumentFile.loadFromFile;
 

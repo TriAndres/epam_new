@@ -1,14 +1,9 @@
-package by.epam;
+package by.epam.number.menu;
 
-
-import static by.epam.argument.controller.ArgumentController.getArgumentService;
 import static by.epam.methods.Input.getString;
+import static by.epam.number.controller.NumberController.numberService;
 
-public class Main {
-    public static void main(String[] args) {
-        new Main().game();
-    }
-
+public class NumberMenu {
     public void game() {
         while (true) {
             String num = menu();
@@ -19,13 +14,13 @@ public class Main {
 
     private String menu() {
         System.out.println("\n\tВыбирете действие:" +
-                "\n\t1 - задача N1" +
-                "\n\t2 - задача N2" +
-                "\n\t3 - задача N3" +
-                "\n\t4 - задача N4" +
-                "\n\t5 - задача N5" +
-                "\n\t6 - задача N6" +
-                "\n\t0 - Выход из программы."
+                "\n\t1 - вывод списка." +
+                "\n\t2 - добавление." +
+                "\n\t3 - обнавление." +
+                "\n\t4 - вывод по id." +
+                "\n\t5 - удаление по id." +
+                "\n\t6 - удалить всё." +
+                "\n\t0 - Выход из меню цифр."
         );
         return getString();
     }
@@ -33,22 +28,22 @@ public class Main {
     private void select(String num) {
         switch (num) {
             case "1":
-                getArgumentService().task1();
+                numberService().findAll();
                 break;
             case "2":
-                getArgumentService().task2();
+                numberService().crete();
                 break;
             case "3":
-                System.out.println("В разработке.");
+                numberService().update();
                 break;
             case "4":
-                getArgumentService().task4();
+                numberService().findById();
                 break;
             case "5":
-                System.out.println("В разработке.");
+                numberService().deleteById();
                 break;
             case "6":
-                System.out.println("В разработке.");
+                numberService().deleteAll();
                 break;
             case "0":
                 System.out.println("Выход из программы.");

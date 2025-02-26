@@ -2,15 +2,13 @@ package by.epam.argument.model;
 
 public class Argument {
     private Long id;
-    private Integer task;
     private String argument;
 
     public Argument() {
     }
 
-    public Argument(Long id, Integer task, String argument) {
+    public Argument(Long id, String argument) {
         this.id = id;
-        this.task = task;
         this.argument = argument;
     }
 
@@ -20,14 +18,6 @@ public class Argument {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getTask() {
-        return task;
-    }
-
-    public void setTask(Integer task) {
-        this.task = task;
     }
 
     public String getArgument() {
@@ -40,10 +30,6 @@ public class Argument {
 
     @Override
     public String toString() {
-        return "Argument{" +
-                "id=" + id +
-                ", task=" + task +
-                ", argument='" + argument + '\'' +
-                '}';
+        return String.format("%d/%s", id, argument);
     }
 }
