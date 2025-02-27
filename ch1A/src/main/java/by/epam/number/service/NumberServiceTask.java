@@ -35,7 +35,9 @@ public class NumberServiceTask {
         Random random = new Random();
         List<Integer> list = new ArrayList<>();
         for (int i = 0; i < lengthNum; i++) {
-            list.add(from + random.nextInt(to - from));
+            int num = from + random.nextInt(to - from);
+            list.add(num);
+            numberFile.save(new Number(getNextId(),num));
         }
         System.out.println("Введите количество чисел в строке:");
         int count = 0;
@@ -58,6 +60,27 @@ public class NumberServiceTask {
     public void task5() {
         System.out.println("5. Ввести целые числа как аргументы командной строки, подсчитать их суммы и произведения." +
                 " Вывести результат на консоль.");
+        int num;
+        int sum = 0;
+        int mull = 1;
+        while (true) {
+            System.out.println("Введите число или 0 для выхода:");
+            num = getInteger();
+            numberFile.save(new Number(getNextId(),num));
+            if (num > 0) {
+                sum += num;
+                mull *= num;
+                if (sum > 100_000 || mull > 100_000) {
+                    System.out.println("Выход, сумма или произведение больше 100.000");
+                    break;
+                } else {
+                    System.out.println("Сумма = " + sum + "\nПроизведение = " + mull);
+                }
+            } else if (num == 0) {
+                System.out.println("Выход из цикла");
+                break;
+            }
+        }
     }
 
     private long getNextId() {
