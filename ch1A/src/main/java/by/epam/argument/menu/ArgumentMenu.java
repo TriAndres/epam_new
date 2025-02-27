@@ -1,9 +1,9 @@
-package by.epam.number.menu;
+package by.epam.argument.menu;
 
+import static by.epam.argument.controller.ArgumentController.getArgumentService;
 import static by.epam.methods.Input.getString;
-import static by.epam.number.controller.NumberController.numberService;
 
-public class NumberMenu {
+public class ArgumentMenu {
     public void game() {
         while (true) {
             String num = menu();
@@ -20,7 +20,7 @@ public class NumberMenu {
                 "\n\t4 - вывод по id." +
                 "\n\t5 - удаление по id." +
                 "\n\t6 - удалить всё." +
-                "\n\t0 - Выход из меню цифр."
+                "\n\t0 - Выход из меню аргумента."
         );
         return getString();
     }
@@ -28,25 +28,25 @@ public class NumberMenu {
     private void select(String num) {
         switch (num) {
             case "1":
-                numberService().findAll();
+                getArgumentService().findAll();
                 break;
             case "2":
-                numberService().create();
+                getArgumentService().create();
                 break;
             case "3":
-                numberService().update();
+                getArgumentService().update();
                 break;
             case "4":
-                numberService().findById();
+                getArgumentService().findById();
                 break;
             case "5":
-                numberService().deleteById();
+                getArgumentService().deleteById();
                 break;
             case "6":
-                numberService().deleteAll();
+                getArgumentService().deleteAll();
                 break;
             case "0":
-                System.out.println("Выход из меню цифр.");
+                System.out.println("Выход из меню аргумента.");
                 break;
             default:
                 System.out.println("Выбирите действие из перечисленых.");

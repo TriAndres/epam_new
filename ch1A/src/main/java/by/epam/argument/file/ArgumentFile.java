@@ -36,6 +36,25 @@ public class ArgumentFile extends ArgumentRepositoryImpl {
         return argument1;
     }
 
+    @Override
+    public Argument findById(long id) {
+        Argument argument = super.findById(id);
+        saveF();
+        return argument;
+    }
+
+    @Override
+    public void deleteById(long id) {
+        super.deleteById(id);
+        saveF();
+    }
+
+    @Override
+    public void deleteAll() {
+        super.deleteAll();
+        saveF();
+    }
+
     public static ArgumentFile loadFromFile(String file) {
         ArgumentFile argumentFile = new ArgumentFile(file);
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
@@ -45,7 +64,7 @@ public class ArgumentFile extends ArgumentRepositoryImpl {
                 argumentFile.save(
                         new Argument(
                            Long.parseLong(row[0]),
-                           row[2]
+                           row[1]
                         )
                 );
             }

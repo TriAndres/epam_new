@@ -3,6 +3,7 @@ package by.epam.argument.service;
 import by.epam.argument.file.ArgumentFile;
 import by.epam.argument.model.Argument;
 
+import static by.epam.methods.Input.getInteger;
 import static by.epam.methods.Input.getString;
 
 public class ArgumentService {
@@ -12,34 +13,68 @@ public class ArgumentService {
         this.argumentFile = argumentFile;
     }
 
-    public void task1() {
-        System.out.println("1. Приветствовать любого пользователя при вводе его имени через командную строку");
-        System.out.println("Введите ваше имя:");
-        String name = getString();
-        System.out.println(name + ", Вас приветствую!");
-        argumentFile.save(new Argument(getNextId(), name));
-    }
-
-    public void task2() {
-        System.out.println("2. Отобразить в окне консоли аргументы командной строки в обратном порядке.");
-        System.out.println("\tВведите аргумент:");
-        String argument = getString();
-        String s = new StringBuilder().append(argument).reverse().toString();
-        System.out.println("\tВ обратном порядке:\n\t"+ s);
-        argumentFile.save(new Argument(getNextId(), argument));
-    }
-
-    public void task4() {
-        System.out.println("4. Ввести пароль из командной строки и сравнить его со строкой-образцом.");
-        String model = "passwordSuper";
-        System.out.println("\tВведите правильно образец пароля" + model + ":");
-        String password = getString();
-        if (model.equals(password)) {
-            System.out.println("Ввели верно.");
+    public void findAll() {
+        int count = 0;
+        int lengthLine = 10;
+        if (!argumentFile.findAll().isEmpty()) {
+            for (Argument a : argumentFile.findAll()) {
+                System.out.print(a.toString() + " ");
+                count++;
+                if (count == lengthLine) {
+                    System.out.println();
+                    count = 0;
+                }
+            }
         } else {
-            System.out.println("Ввели не верно.");
+            System.out.println("Заполните список.");
         }
-        argumentFile.save(new Argument(getNextId(), password));
+    }
+
+    public void create() {
+        System.out.println("Введите аргумент:");
+        argumentFile.save(new Argument(getNextId(), getString()));
+        System.out.println("Записано.");
+    }
+
+    public void update() {
+        System.out.println("Ведите id аргумента для обновления:");
+        long idArgument = getInteger();
+        if (argumentFile.findAll().contains(argumentFile.findById(idArgument))) {
+            Argument oldArgument = argumentFile.findById(idArgument);
+            System.out.println("Введите аргумент:");
+            oldArgument.setArgument(getString());
+            argumentFile.save(oldArgument);
+            System.out.println("Обновили.");
+        } else {
+            System.out.println("С таким id = " + idArgument + " не заполнен список.");
+        }
+    }
+
+    public void findById() {
+        System.out.println("Введите id аргумента:");
+        long idArgument = getInteger();
+        if (argumentFile.findAll().contains(argumentFile.findById(idArgument))) {
+            System.out.println(argumentFile.findById(idArgument));
+            System.out.println("Вывод.");
+        } else {
+            System.out.println("С таким id = " + idArgument + " не заполнен список.");
+        }
+    }
+
+    public void deleteById() {
+        System.out.println("Введите id аргумента:");
+        long idArgument = getInteger();
+        if (argumentFile.findAll().contains(argumentFile.findById(idArgument))) {
+            argumentFile.deleteById(idArgument);
+            System.out.println("Удаление.");
+        } else {
+            System.out.println("С таким id = " + idArgument + " не заполнен список.");
+        }
+    }
+
+    public void deleteAll() {
+        argumentFile.deleteAll();
+        System.out.println("Удалён список.");
     }
 
     private long getNextId() {

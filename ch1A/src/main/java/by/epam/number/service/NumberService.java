@@ -17,7 +17,7 @@ public class NumberService {
         int lengthLine = 10;
         if (!numberFile.findAll().isEmpty()) {
             for (Number n : numberFile.findAll()) {
-                System.out.println(n.toString());
+                System.out.print(n.toString() + " ");
                 count++;
                 if (count == lengthLine) {
                     System.out.println();
@@ -29,7 +29,7 @@ public class NumberService {
         }
     }
 
-    public void crete() {
+    public void create() {
         System.out.println("Введите цифру:");
         numberFile.save(new Number(getNextId(), getInteger()));
         System.out.println("Записано.");

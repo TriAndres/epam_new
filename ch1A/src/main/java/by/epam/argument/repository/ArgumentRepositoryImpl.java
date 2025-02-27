@@ -19,4 +19,19 @@ public class ArgumentRepositoryImpl implements ArgumentRepository {
     public Argument save(Argument argument) {
         return arguments.put(argument.getId(), argument);
     }
+
+    @Override
+    public Argument findById(long id) {
+        return arguments.get(id);
+    }
+
+    @Override
+    public void deleteById(long id) {
+        arguments.remove(id);
+    }
+
+    @Override
+    public void deleteAll() {
+        arguments.clear();
+    }
 }
