@@ -10,7 +10,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>learn</module>
-        <module>ch1A</module>
+        <module>ch1-console</module>
+        <module>ch1-spring</module>
     </modules>
 
     <properties>
