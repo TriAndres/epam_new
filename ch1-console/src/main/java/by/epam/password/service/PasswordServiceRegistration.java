@@ -20,43 +20,39 @@ public class PasswordServiceRegistration {
         String password;
         registrationFalse();
         while (true) {
-            while (true) {
-                System.out.println("Введите логин от 5 знаков или 0 для выхлда:");
-                login = getString();
-                if (login.length() >= 5) {
-                    if (loginBool(login)) {
-                        break;
-                    } else {
-                        System.out.println("Существует логин.");
-                    }
-                } else if (login.equals("0")) {
-                    login = "0";
+            System.out.println("Введите логин от 5 знаков или 0 для выхлда:");
+            login = getString();
+            if (login.length() >= 5) {
+                if (loginBool(login)) {
                     break;
-                }
-            }
-
-            if (!login.equals("0")) {
-                while (true) {
-                    System.out.println("Введите пароль от 5 знаков");
-                    password = getString();
-                    if (password.length() >= 5) {
-                        break;
-                    } else if (password.equals("0")) {
-                        password = "0";
-                        break;
-                    }
-                }
-                if (!password.equals("0")) {
-                    String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
-                    passwordFile.save(new Password(getNextId(), login, password, true, "null", date, 0));
                 } else {
-                    System.out.println("Выход");
-                    break;
+                    System.out.println("Существует логин.");
                 }
-            } else {
-                System.out.println("Выход");
+            } else if (login.equals("0")) {
+                login = "0";
                 break;
             }
+        }
+
+        if (!login.equals("0")) {
+            while (true) {
+                System.out.println("Введите пароль от 5 знаков или 0 для выхлда:");
+                password = getString();
+                if (password.length() >= 5) {
+                    break;
+                } else if (password.equals("0")) {
+                    password = "0";
+                    break;
+                }
+            }
+            if (!password.equals("0")) {
+                String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
+                passwordFile.save(new Password(getNextId(), login, password, true, "null", date, 0));
+            } else {
+                System.out.println("Выход");
+            }
+        } else {
+            System.out.println("Выход");
         }
     }
 
@@ -80,7 +76,7 @@ public class PasswordServiceRegistration {
 
     private boolean loginBool(String login) {
         if (passwordFile.findAll().isEmpty()) {
-            return false;
+            return true;
         } else {
             for (Password password : passwordFile.findAll()) {
                 if (!password.getLogin().equals(login)) {

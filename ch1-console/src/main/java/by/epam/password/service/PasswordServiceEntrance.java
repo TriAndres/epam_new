@@ -3,6 +3,8 @@ package by.epam.password.service;
 import by.epam.password.file.PasswordFile;
 import by.epam.password.model.Password;
 
+import static by.epam.methods.Input.getString;
+
 public class PasswordServiceEntrance {
     private final PasswordFile passwordFile;
 
@@ -14,7 +16,23 @@ public class PasswordServiceEntrance {
         String login;
         String password;
         registrationFalse();
+        System.out.println("Введите логин или 0 для выхлда:");
+        login = getString();
+        for (Password login2 : passwordFile.findAll()) {
+            if (login2.getLogin().equals(login)) {
+                System.out.println("Введите пароль или 0 для выхлда:");
+                password = getString();
+                if (login2.getPassword().equals(password)) {
+                    login2.setRegistration(true);
+                } else {
+                    System.out.println("Пароль не подходит");
+                }
+            } else {
+                System.out.println("Логин не подходит");
+            }
+        }
     }
+
 
     public boolean registrationBool() {
         for (Password password : passwordFile.findAll()) {
