@@ -17,6 +17,7 @@ public class PasswordFile extends PasswordRepositoryImpl {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             for (Password password : findAll()) {
                 writer.write(password.toString());
+                writer.write("\n");
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

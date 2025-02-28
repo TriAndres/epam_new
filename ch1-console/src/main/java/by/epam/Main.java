@@ -3,6 +3,7 @@ package by.epam;
 
 import by.epam.argument.menu.ArgumentMenu;
 import by.epam.number.menu.NumberMenu;
+import by.epam.password.menu.PasswordMenu;
 
 import static by.epam.argument.controller.ArgumentController.getArgumentServiceTask;
 import static by.epam.methods.Input.getString;
@@ -14,33 +15,39 @@ public class Main {
     }
 
     public void game() {
+
         while (true) {
-            System.out.println("\n\tВыбирете действие:" +
-                    "\n\t1 - меню аргумента." +
-                    "\n\t2 - меню цифр." +
-                    "\n\t3 - меню задач." +
-                    "\n\t0 - Выход из программы."
-            );
-            String num = getString();
-            switch (num) {
-                case "1":
-                    new ArgumentMenu().game();
-                    break;
-                case "2":
-                    new NumberMenu().game();
-                    break;
-                case "3":
-                    menuTask();
-                    break;
-                case "0":
-                    System.out.println("Выход из программы.");
-                    break;
-                default:
-                    System.out.println("Выбирите действие из перечисленых.");
-                    break;
+            PasswordMenu passwordMenu = new PasswordMenu();
+            passwordMenu.game();
+            if (passwordMenu.enterBool()) {
+                System.out.println("\n\tВыбирете действие:" +
+                        "\n\t1 - меню аргумента." +
+                        "\n\t2 - меню цифр." +
+                        "\n\t3 - меню задач." +
+                        "\n\t0 - Выход из программы."
+                );
+                String num = getString();
+                switch (num) {
+                    case "1":
+                        new ArgumentMenu().game();
+                        break;
+                    case "2":
+                        new NumberMenu().game();
+                        break;
+                    case "3":
+                        menuTask();
+                        break;
+                    case "0":
+                        System.out.println("Выход из программы.");
+                        break;
+                    default:
+                        System.out.println("Выбирите действие из перечисленых.");
+                        break;
+                }
+                if (num.equals("0")) break;
             }
-            if (num.equals("0")) break;
         }
+
     }
 
     private void menuTask() {
