@@ -3,6 +3,7 @@ package by.epam.argument.service;
 import by.epam.argument.file.ArgumentFile;
 import by.epam.argument.model.Argument;
 
+import static by.epam.argument.file.ArgumentFile.loadFromFile;
 import static by.epam.methods.Input.getInteger;
 import static by.epam.methods.Input.getString;
 
@@ -13,6 +14,11 @@ public class ArgumentService {
         this.argumentFile = argumentFile;
     }
 
+    public static void main(String[] args) {
+        String file = "ch1A\\src\\main\\java\\by\\epam\\argument\\file\\ArgumentFile.txt";
+        ArgumentFile argumentFile = loadFromFile(file);
+        new ArgumentService(argumentFile).create();
+    }
     public void findAll() {
         int count = 0;
         int lengthLine = 10;

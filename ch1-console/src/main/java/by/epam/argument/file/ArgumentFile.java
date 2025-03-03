@@ -16,7 +16,7 @@ public class ArgumentFile extends ArgumentRepositoryImpl {
     public void saveF() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             for (Argument argument : findAll()) {
-                writer.write(argument.toString());
+                writer.write(argument.getId() + "/" + argument.getArgument());
                 writer.write("\n");
             }
         } catch (IOException e) {

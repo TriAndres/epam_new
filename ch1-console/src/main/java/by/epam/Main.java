@@ -8,6 +8,7 @@ import by.epam.password.menu.PasswordMenu;
 import static by.epam.argument.controller.ArgumentController.getArgumentServiceTask;
 import static by.epam.methods.Input.getString;
 import static by.epam.number.controller.NumberController.numberServiceTask;
+import static by.epam.password.controller.PasswordController.passwordServiceTask6;
 
 public class Main {
     public static void main(String[] args) {
@@ -20,6 +21,7 @@ public class Main {
             PasswordMenu passwordMenu = new PasswordMenu();
             passwordMenu.game();
             if (passwordMenu.enterBool()) {
+                passwordServiceTask6().task();
                 System.out.println("\n\tВыбирете действие:" +
                         "\n\t1 - меню аргумента." +
                         "\n\t2 - меню цифр." +

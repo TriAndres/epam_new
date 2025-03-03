@@ -7,7 +7,7 @@ import by.epam.argument.service.ArgumentServiceTask;
 import static by.epam.argument.file.ArgumentFile.loadFromFile;
 
 public class ArgumentController {
-    private static final String file = "ch1A\\src\\main\\java\\by\\epam\\argument\\file\\ArgumentFile.txt";
+    private static final String file = "ch1-console\\src\\main\\java\\by\\epam\\argument\\file\\ArgumentFile.txt";
     private static final ArgumentFile argumentFile = loadFromFile(file);
 
     public static ArgumentService getArgumentService() {

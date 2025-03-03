@@ -24,11 +24,14 @@ public class PasswordServiceEntrance {
                 password = getString();
                 if (login2.getPassword().equals(password)) {
                     login2.setRegistration(true);
+                    passwordFile.save(login2);
                 } else {
                     System.out.println("Пароль не подходит");
+                    break;
                 }
             } else {
                 System.out.println("Логин не подходит");
+                break;
             }
         }
     }
