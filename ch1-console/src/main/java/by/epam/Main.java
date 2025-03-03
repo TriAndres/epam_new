@@ -7,7 +7,7 @@ import by.epam.password.menu.PasswordMenu;
 
 import static by.epam.argument.controller.ArgumentController.getArgumentServiceTask;
 import static by.epam.methods.Input.getString;
-import static by.epam.number.controller.NumberController.numberServiceTask;
+import static by.epam.number.controller.NumberController.numberServiceTaskA;
 import static by.epam.password.controller.PasswordController.passwordServiceTask6;
 
 public class Main {
@@ -82,13 +82,13 @@ public class Main {
                 getArgumentServiceTask().task2();
                 break;
             case "3":
-                numberServiceTask().task3();
+                numberServiceTaskA().task3();
                 break;
             case "4":
                 getArgumentServiceTask().task4();
                 break;
             case "5":
-                numberServiceTask().task5();
+                numberServiceTaskA().task5();
                 break;
             case "6":
                 System.out.println("В разработке.");

@@ -45,6 +45,6 @@ public class PasswordServiceTask6 {
             assert password != null;
             password.setName(name);
             passwordFile.save(password);
-        } 
+        }
     }
 }
