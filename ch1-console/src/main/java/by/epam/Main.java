@@ -3,6 +3,7 @@ package by.epam;
 
 import by.epam.argument.menu.ArgumentMenu;
 import by.epam.number.menu.NumberMenu;
+import by.epam.number.menu.NumberTaskBMenu;
 import by.epam.password.menu.PasswordMenu;
 
 import static by.epam.argument.controller.ArgumentController.getArgumentServiceTask;
@@ -25,7 +26,8 @@ public class Main {
                 System.out.println("\n\tВыбирете действие:" +
                         "\n\t1 - меню аргумента." +
                         "\n\t2 - меню цифр." +
-                        "\n\t3 - меню задач." +
+                        "\n\t3 - меню задач варианта А." +
+                        "\n\t4 - меню задач варианта В." +
                         "\n\t0 - Выход из программы."
                 );
                 String num = getString();
@@ -38,6 +40,9 @@ public class Main {
                         break;
                     case "3":
                         menuTask();
+                        break;
+                    case "4":
+                        new NumberTaskBMenu().game();
                         break;
                     case "0":
                         System.out.println("Выход из программы.");
@@ -61,7 +66,8 @@ public class Main {
     }
 
     private String menu() {
-        System.out.println("\n\tВыбирете действие:" +
+        System.out.println("\n\t Вариант А" +
+                "\n\tВыбирете действие:" +
                 "\n\t1 - задача N1" +
                 "\n\t2 - задача N2" +
                 "\n\t3 - задача N3" +
