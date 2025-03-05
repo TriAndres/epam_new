@@ -9,10 +9,10 @@ import java.util.Random;
 
 import static by.epam.methods.Input.getInteger;
 
-public class NumberServiceTask {
+public class NumberServiceTaskA {
     private final NumberFile numberFile;
 
-    public NumberServiceTask(NumberFile numberFile) {
+    public NumberServiceTaskA(NumberFile numberFile) {
         this.numberFile = numberFile;
     }
 

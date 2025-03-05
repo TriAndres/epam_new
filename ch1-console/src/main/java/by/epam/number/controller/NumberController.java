@@ -2,7 +2,8 @@ package by.epam.number.controller;
 
 import by.epam.number.file.NumberFile;
 import by.epam.number.service.NumberService;
-import by.epam.number.service.NumberServiceTask;
+import by.epam.number.service.NumberServiceTaskA;
+import by.epam.number.service.NumberServiceTaskB;
 
 import static by.epam.number.file.NumberFile.loadFromFile;
 
@@ -14,7 +15,11 @@ public class NumberController {
         return new NumberService(numberFile);
     }
 
-    public static NumberServiceTask numberServiceTask() {
-        return new NumberServiceTask(numberFile);
+    public static NumberServiceTaskA numberServiceTaskA() {
+        return new NumberServiceTaskA(numberFile);
+    }
+
+    public static NumberServiceTaskB numberServiceTaskB() {
+        return new NumberServiceTaskB(numberFile);
     }
 }

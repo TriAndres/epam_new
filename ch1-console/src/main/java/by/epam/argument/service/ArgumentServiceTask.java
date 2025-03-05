@@ -22,11 +22,13 @@ public class ArgumentServiceTask {
 
     public void task2() {
         System.out.println("2. Отобразить в окне консоли аргументы командной строки в обратном порядке.");
-        System.out.println("\tВведите аргумент:");
-        String argument = getString();
-        String s = new StringBuilder().append(argument).reverse().toString();
-        System.out.println("\tВ обратном порядке:\n\t"+ s);
-        argumentFile.save(new Argument(getNextId(), argument));
+        if (!argumentFile.findAll().isEmpty()) {
+            for (Argument argument : argumentFile.findAll()) {
+                System.out.println(argument.getArgument() + ", в обратном порядке: " + new StringBuilder().append(argument.getArgument()).reverse().toString());
+            }
+        } else {
+            System.out.println("Заполните список в меню аргумента.");
+        }
     }
 
     public void task4() {
