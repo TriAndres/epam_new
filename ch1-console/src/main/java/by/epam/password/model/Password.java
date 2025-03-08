@@ -9,6 +9,28 @@ public class Password {
     private String localDateTime;
     private Integer interval;
 
+    /*
+     private Long id;
+     private String login;
+     private String password;
+     private Boolean registration;
+     private String registrationLocalDateTime;
+     private Long employeeId;
+
+     public Password(Long id,
+                     String login,
+                     String password,
+                     Boolean registration,
+                     String registrationLocalDateTime,
+                     Long employeeId) {
+         this.id = id;
+         this.login = login;
+         this.password = password;
+         this.registration = registration;
+         this.registrationLocalDateTime = registrationLocalDateTime;
+         this.employeeId = employeeId;
+     }
+     */
     public Password(Long id,
                     String login,
                     String password,
@@ -88,6 +110,5 @@ public class Password {
     public String toString() {
         return String.format("%d/%s/%s/%b/%s/%s/%d",
                 id, login, password, registration, name, localDateTime, interval);
-
     }
 }

@@ -46,8 +46,8 @@ public class PasswordServiceRegistration {
                 }
             }
             if (!password.equals("0")) {
-                String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
-                passwordFile.save(new Password(getNextId(), login, password, true, "null", date, 0));
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+                passwordFile.save(new Password(getNextId(), login, password, true, "null", LocalDateTime.now().format(formatter), 0));
             } else {
                 System.out.println("Выход");
             }
