@@ -87,7 +87,7 @@ public class PasswordServiceRegistration {
         return false;
     }
 
-    public Long getNextId() {
+    private Long getNextId() {
         long currentMaxId = passwordFile.findAll()
                 .stream()
                 .mapToLong(Password::getId)

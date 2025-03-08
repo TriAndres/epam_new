@@ -45,7 +45,7 @@ public class PasswordController {
     }
 
     @DeleteMapping()
-    public void deleteById() {
+    public void deleteAll() {
         passwordService.deleteAll();
     }
 }
