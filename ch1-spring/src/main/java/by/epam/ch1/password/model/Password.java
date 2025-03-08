@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,7 +23,6 @@ public class Password {
     @Size(min = 5, message = "password min = 5")
     private String password;
     private Boolean registration;
-    private String name;
-    private String localDateTime;
-    private Integer interval;
+    private LocalDateTime registrationDateTime;
+    private Long employeeId;
 }
