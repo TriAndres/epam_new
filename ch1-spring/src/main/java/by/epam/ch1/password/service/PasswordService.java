@@ -18,6 +18,7 @@ public class PasswordService {
     }
 
     public Password create(Password password) {
+        password.setId(getNextId());
         return passwordRepository.save(password);
     }
 
@@ -35,5 +36,14 @@ public class PasswordService {
 
     public void deleteAll() {
         passwordRepository.findAll();
+    }
+
+    private Long getNextId() {
+        long currentMaxId = passwordRepository.findAll()
+                .stream()
+                .mapToLong(Password::getId)
+                .max()
+                .orElse(0);
+        return ++currentMaxId;
     }
 }
