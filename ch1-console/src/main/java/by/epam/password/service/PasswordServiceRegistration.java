@@ -19,41 +19,21 @@ public class PasswordServiceRegistration {
         String login;
         String password;
         registrationFalse();
-        while (true) {
-            System.out.println("Введите логин от 5 знаков или 0 для выхлда:");
-            login = getString();
-            if (login.length() >= 5) {
-                if (loginBool(login)) {
-                    break;
-                } else {
-                    System.out.println("Существует логин.");
-                }
-            } else if (login.equals("0")) {
-                login = "0";
-                break;
-            }
-        }
 
-        if (!login.equals("0")) {
-            while (true) {
-                System.out.println("Введите пароль от 5 знаков или 0 для выхлда:");
-                password = getString();
-                if (password.length() >= 5) {
-                    break;
-                } else if (password.equals("0")) {
-                    password = "0";
-                    break;
-                }
-            }
-            if (!password.equals("0")) {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-                passwordFile.save(new Password(getNextId(), login, password, true, "null", LocalDateTime.now().format(formatter), 0));
+        while (true) {
+            System.out.println("Введите логин:");
+            login = getString();
+            if (loginBool(login)) {
+                break;
             } else {
-                System.out.println("Выход");
+                System.out.println("Существует логин.");
             }
-        } else {
-            System.out.println("Выход");
         }
+        System.out.println("Введите пароль:");
+        password = getString();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        Long id = getNextId();
+        passwordFile.save(new Password(id, login, password, true, LocalDateTime.now().format(formatter), id));
     }
 
     public boolean registrationBool() {

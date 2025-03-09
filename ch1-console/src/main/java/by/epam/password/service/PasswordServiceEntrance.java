@@ -16,23 +16,27 @@ public class PasswordServiceEntrance {
         String login;
         String password;
         registrationFalse();
-        System.out.println("Введите логин или 0 для выхлда:");
-        login = getString();
-        for (Password login2 : passwordFile.findAll()) {
-            if (login2.getLogin().equals(login)) {
-                System.out.println("Введите пароль или 0 для выхлда:");
-                password = getString();
-                if (login2.getPassword().equals(password)) {
-                    login2.setRegistration(true);
-                    passwordFile.save(login2);
+        if (!passwordFile.findAll().isEmpty()) {
+            System.out.println("Введите логин:");
+            login = getString();
+            for (Password login2 : passwordFile.findAll()) {
+                if (login2.getLogin().equals(login)) {
+                    System.out.println("Введите пароль:");
+                    password = getString();
+                    if (login2.getPassword().equals(password)) {
+                        login2.setRegistration(true);
+                        passwordFile.save(login2);
+                    } else {
+                        System.out.println("Пароль не подходит");
+                        break;
+                    }
                 } else {
-                    System.out.println("Пароль не подходит");
+                    System.out.println("Логин не подходит");
                     break;
                 }
-            } else {
-                System.out.println("Логин не подходит");
-                break;
             }
+        } else {
+            System.out.println("Список пуст.");
         }
     }
 

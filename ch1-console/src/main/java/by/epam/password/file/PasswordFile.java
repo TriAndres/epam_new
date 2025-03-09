@@ -68,8 +68,7 @@ public class PasswordFile extends PasswordRepositoryImpl {
                         row[2],
                         Boolean.valueOf(row[3]),
                         row[4],
-                        row[5],
-                        Integer.parseInt(row[6])
+                        Long.parseLong(row[5])
                 ));
             }
         } catch (IOException e) {

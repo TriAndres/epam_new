@@ -60,6 +60,7 @@ public class Employee {
 
     @Override
     public String toString() {
-        return id + "/" + firstName + "/" + SecondName + "/" + timeFrom + "/" + timeTo;
+        return id + "/" + firstName + "/" +
+                SecondName + "/" + timeFrom + "/" + timeTo;
     }
 }
