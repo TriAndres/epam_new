@@ -1,15 +1,6 @@
 package by.epam.password.model;
 
 public class Password {
-    private Long id;
-    private String login;
-    private String password;
-    private Boolean registration;
-    private String name;
-    private String localDateTime;
-    private Integer interval;
-
-    /*
      private Long id;
      private String login;
      private String password;
@@ -30,25 +21,6 @@ public class Password {
          this.registrationLocalDateTime = registrationLocalDateTime;
          this.employeeId = employeeId;
      }
-     */
-    public Password(Long id,
-                    String login,
-                    String password,
-                    Boolean registration,
-                    String name,
-                    String localDateTime,
-                    Integer interval) {
-        this.id = id;
-        this.login = login;
-        this.password = password;
-        this.registration = registration;
-        this.name = name;
-        this.localDateTime = localDateTime;
-        this.interval = interval;
-    }
-
-    public Password() {
-    }
 
     public Long getId() {
         return id;
@@ -82,33 +54,25 @@ public class Password {
         this.registration = registration;
     }
 
-    public String getName() {
-        return name;
+    public String getRegistrationLocalDateTime() {
+        return registrationLocalDateTime;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRegistrationLocalDateTime(String registrationLocalDateTime) {
+        this.registrationLocalDateTime = registrationLocalDateTime;
     }
 
-    public String getLocalDateTime() {
-        return localDateTime;
+    public Long getEmployeeId() {
+        return employeeId;
     }
 
-    public void setLocalDateTime(String localDateTime) {
-        this.localDateTime = localDateTime;
-    }
-
-    public Integer getInterval() {
-        return interval;
-    }
-
-    public void setInterval(Integer interval) {
-        this.interval = interval;
+    public void setEmployeeId(Long employeeId) {
+        this.employeeId = employeeId;
     }
 
     @Override
     public String toString() {
-        return String.format("%d/%s/%s/%b/%s/%s/%d",
-                id, login, password, registration, name, localDateTime, interval);
+        return String.format("%d/%s/%s/%b/%s/%d",
+                id, login, password, registration, registrationLocalDateTime, employeeId);
     }
 }

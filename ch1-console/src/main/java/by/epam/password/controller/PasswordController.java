@@ -3,7 +3,6 @@ package by.epam.password.controller;
 import by.epam.password.file.PasswordFile;
 import by.epam.password.service.PasswordServiceEntrance;
 import by.epam.password.service.PasswordServiceRegistration;
-import by.epam.password.service.PasswordServiceTask6;
 
 import static by.epam.password.file.PasswordFile.loadFromFile;
 
@@ -17,9 +16,5 @@ public class PasswordController {
 
     public static PasswordServiceEntrance passwordServiceEntrance() {
         return new PasswordServiceEntrance(passwordFile);
-    }
-
-    public static PasswordServiceTask6 passwordServiceTask6() {
-        return new PasswordServiceTask6(passwordFile);
     }
 }

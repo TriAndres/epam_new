@@ -7,9 +7,9 @@ import by.epam.number.menu.NumberTaskBMenu;
 import by.epam.password.menu.PasswordMenu;
 
 import static by.epam.argument.controller.ArgumentController.getArgumentServiceTask;
+import static by.epam.employee.controller.EmployeeController.employeeServiceTaskA6;
 import static by.epam.methods.Input.getString;
 import static by.epam.number.controller.NumberController.numberServiceTaskA;
-import static by.epam.password.controller.PasswordController.passwordServiceTask6;
 
 public class Main {
     public static void main(String[] args) {
@@ -18,42 +18,44 @@ public class Main {
 
     public void game() {
 
-        while (true) {
+        //while (true) {
             PasswordMenu passwordMenu = new PasswordMenu();
             passwordMenu.game();
+            employeeServiceTaskA6().task();
             if (passwordMenu.enterBool()) {
-                passwordServiceTask6().task();
-                System.out.println("\n\tВыбирете действие:" +
-                        "\n\t1 - меню аргумента." +
-                        "\n\t2 - меню цифр." +
-                        "\n\t3 - меню задач варианта А." +
-                        "\n\t4 - меню задач варианта В." +
-                        "\n\t0 - Выход из программы."
-                );
-                String num = getString();
-                switch (num) {
-                    case "1":
-                        new ArgumentMenu().game();
-                        break;
-                    case "2":
-                        new NumberMenu().game();
-                        break;
-                    case "3":
-                        menuTask();
-                        break;
-                    case "4":
-                        new NumberTaskBMenu().game();
-                        break;
-                    case "0":
-                        System.out.println("Выход из программы.");
-                        break;
-                    default:
-                        System.out.println("Выбирите действие из перечисленых.");
-                        break;
+                while (true) {
+                    System.out.println("\n\tВыбирете действие:" +
+                            "\n\t1 - меню аргумента." +
+                            "\n\t2 - меню цифр." +
+                            "\n\t3 - меню задач варианта А." +
+                            "\n\t4 - меню задач варианта В." +
+                            "\n\t0 - Выход из программы."
+                    );
+                    String num = getString();
+                    switch (num) {
+                        case "1":
+                            new ArgumentMenu().game();
+                            break;
+                        case "2":
+                            new NumberMenu().game();
+                            break;
+                        case "3":
+                            menuTask();
+                            break;
+                        case "4":
+                            new NumberTaskBMenu().game();
+                            break;
+                        case "0":
+                            System.out.println("Выход из программы.");
+                            break;
+                        default:
+                            System.out.println("Выбирите действие из перечисленых.");
+                            break;
+                    }
+                    if (num.equals("0")) break;
                 }
-                if (num.equals("0")) break;
             }
-        }
+        //}
 
     }
 
@@ -95,9 +97,6 @@ public class Main {
                 break;
             case "5":
                 numberServiceTaskA().task5();
-                break;
-            case "6":
-                System.out.println("В разработке.");
                 break;
             case "0":
                 System.out.println("Выход из меню задач.");
