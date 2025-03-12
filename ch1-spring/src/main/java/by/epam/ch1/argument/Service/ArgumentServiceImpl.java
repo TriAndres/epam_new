@@ -2,6 +2,7 @@ package by.epam.ch1.argument.Service;
 
 import by.epam.ch1.argument.model.Argument;
 import by.epam.ch1.argument.repository.ArgumentRepositoryImpl;
+import by.epam.ch1.password.model.Password;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,13 +23,18 @@ public class ArgumentServiceImpl implements ArgumentService {
 
     @Override
     public Argument create(Argument argument) {
-        return argumentRepository.save(argument);
+        argument.setId(getNextId());
+        argumentRepository.save(argument);
+        log.info("Запись по id = {}", argument.getId());
+        return argument;
     }
 
     @Override
     public Argument update(Argument newArgument) {
         if (!argumentRepository.findAll().isEmpty()) {
             Argument oldArgument = argumentRepository.findById(newArgument.getId()).orElseThrow();
+            oldArgument.setArgument(newArgument.getArgument());
+            log.info("Обновление id = {}", newArgument.getId());
             argumentRepository.save(oldArgument);
             return oldArgument;
         }
@@ -37,16 +43,29 @@ public class ArgumentServiceImpl implements ArgumentService {
 
     @Override
     public Optional<Argument> findById(long id) {
-        return argumentRepository.findById(id);
+        Argument argument = argumentRepository.findById(id).orElseThrow(RuntimeException::new);
+        log.info("Вывод по id = {}", id);
+        return Optional.of(argument);
     }
 
     @Override
     public void deleteById(long id) {
         argumentRepository.deleteById(id);
+        log.info("Удаление по id = {}", id);
     }
 
     @Override
     public void deleteAll() {
         argumentRepository.deleteAll();
+        log.info("Удалить всё.");
+    }
+
+    private Long getNextId() {
+        long currentMaxId = argumentRepository.findAll()
+                .stream()
+                .mapToLong(Argument::getId)
+                .max()
+                .orElse(0);
+        return ++currentMaxId;
     }
 }
