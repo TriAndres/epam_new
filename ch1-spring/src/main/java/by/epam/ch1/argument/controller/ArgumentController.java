@@ -7,7 +7,8 @@ import java.util.Optional;
 
 
 public interface ArgumentController {
-    Collection<Argument> findAll();
+
+    Collection<Argument> findAll(String sort, int from, int size);
 
     Argument create(Argument argument);
 

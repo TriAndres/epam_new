@@ -1,14 +1,15 @@
 package by.epam.ch1.argument.Service;
 
 import by.epam.ch1.argument.model.Argument;
+import by.epam.ch1.argument.model.SortOrderE;
 import by.epam.ch1.argument.repository.ArgumentRepositoryImpl;
 import by.epam.ch1.exception.ArgumentDoesNotExistException;
-import by.epam.ch1.password.model.Password;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Optional;
 
 @Service
@@ -16,10 +17,17 @@ import java.util.Optional;
 @Slf4j
 public class ArgumentServiceImpl implements ArgumentService {
     private final ArgumentRepositoryImpl argumentRepository;
+    private final Comparator<Argument> argumenDateComparator = Comparator.comparing(Argument::getArgument);
 
     @Override
-    public Collection<Argument> findAll() {
-        return argumentRepository.findAll();
+    public Collection<Argument> findAll(SortOrderE sort, int from, int size) {
+        return argumentRepository.findAll()
+                .stream()
+                .sorted(sort.equals(SortOrderE.ASCENDING) ?
+                        argumenDateComparator : argumenDateComparator.reversed())
+                .skip(from)
+                .limit(size)
+                .toList();
     }
 
     @Override

@@ -1,14 +1,16 @@
 package by.epam.ch1.number.service;
 
-import by.epam.ch1.exception.ArgumentDoesNotExistException;
+import by.epam.ch1.argument.model.SortOrderE;
 import by.epam.ch1.exception.NumberDoesNotExistException;
 import by.epam.ch1.number.model.Number;
+import by.epam.ch1.number.model.SortOrderN;
 import by.epam.ch1.number.repository.NumberRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Optional;
 
 @Service
@@ -16,10 +18,17 @@ import java.util.Optional;
 @Slf4j
 public class NumberServiceImpl implements NumberService {
     private final NumberRepositoryImpl numberRepository;
+    private final Comparator<Number> numberComparator = Comparator.comparing(Number::getNum);
 
     @Override
-    public Collection<Number> findAll() {
-        return numberRepository.findAll();
+    public Collection<Number> findAll(SortOrderN sort, int from, int size) {
+        return numberRepository.findAll()
+                .stream()
+                .sorted(sort.equals(SortOrderN.ASCENDING) ?
+                        numberComparator : numberComparator.reversed())
+                .skip(from)
+                .limit(size)
+                .toList();
     }
 
     @Override

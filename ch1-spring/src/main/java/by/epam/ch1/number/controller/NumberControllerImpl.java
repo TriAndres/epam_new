@@ -1,6 +1,8 @@
 package by.epam.ch1.number.controller;
 
+import by.epam.ch1.exception.ParameterNotValidException;
 import by.epam.ch1.number.model.Number;
+import by.epam.ch1.number.model.SortOrderN;
 import by.epam.ch1.number.service.NumberServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -20,8 +23,21 @@ public class NumberControllerImpl implements NumberController {
 
     @Override
     @GetMapping
-    public Collection<Number> findAll() {
-        return numberService.findAll();
+    public Collection<Number> findAll(@RequestParam(defaultValue = "desk") String sort,
+                                      @RequestParam(defaultValue = "0") int from,
+                                      @RequestParam(defaultValue = "10") int size) {
+        SortOrderN sortOrderN = SortOrderN.from(sort);
+        if (sortOrderN == null) {
+            throw new ParameterNotValidException("sort", "Получено: " + sort + " должно быть: ask или desc");
+        }
+        if (size <= 0) {
+            throw new ParameterNotValidException("size", "Размер должен быть больше нуля");
+        }
+
+        if (from < 0) {
+            throw new ParameterNotValidException("from", "Начало выборки должно быть положительным числом");
+        }
+        return numberService.findAll(Objects.requireNonNull(SortOrderN.from(sort)), from, size);
     }
 
     @Override

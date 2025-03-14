@@ -1,5 +1,6 @@
 package by.epam.ch1.employee.service;
 
+import by.epam.ch1.argument.model.SortOrderE;
 import by.epam.ch1.employee.model.Employee;
 import by.epam.ch1.employee.repository.EmployeeRepositoryImpl;
 import by.epam.ch1.exception.EmployeeDoesNotExistException;
@@ -8,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Optional;
 
 @Service
@@ -15,10 +17,17 @@ import java.util.Optional;
 @Slf4j
 public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepositoryImpl repository;
+    private final Comparator<Employee>  employeeComparator = Comparator.comparing(Employee::getFirstName);
 
     @Override
-    public Collection<Employee> findAll() {
-        return repository.findAll();
+    public Collection<Employee> findAll(SortOrderE sort, int from, int size) {
+        return repository.findAll()
+                .stream()
+                .sorted(sort.equals(SortOrderE.ASCENDING) ?
+                        employeeComparator : employeeComparator.reversed())
+                .skip(from)
+                .limit(size)
+                .toList();
     }
 
     @Override
