@@ -1,12 +1,13 @@
 package by.epam.ch1.argument.Service;
 
 import by.epam.ch1.argument.model.Argument;
+import by.epam.ch1.argument.model.SortOrderE;
 
 import java.util.Collection;
 import java.util.Optional;
 
 public interface ArgumentService {
-    Collection<Argument> findAll();
+    Collection<Argument> findAll(SortOrderE sort, int from, int size);
 
     Argument create(Argument argument);
 

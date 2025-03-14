@@ -1,7 +1,9 @@
 package by.epam.ch1.employee.controller;
 
+import by.epam.ch1.argument.model.SortOrderE;
 import by.epam.ch1.employee.model.Employee;
 import by.epam.ch1.employee.service.EmployeeServiceImpl;
+import by.epam.ch1.exception.ParameterNotValidException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Optional;
 
 @Controller
@@ -21,9 +24,22 @@ public class EmployeeControllerImpl implements EmployeeController {
 
     @Override
     @GetMapping
-    public Collection<Employee> findAll() {
+    public Collection<Employee> findAll(@RequestParam(defaultValue = "desk") String sort,
+                                        @RequestParam(defaultValue = "0") int from,
+                                        @RequestParam(defaultValue = "10") int size) {
+        SortOrderE sortOrderE = SortOrderE.from(sort);
+        if (sortOrderE == null) {
+            throw new ParameterNotValidException("sort", "Получено: " + sort + " должно быть: ask или desc");
+        }
+        if (size <= 0) {
+            throw new ParameterNotValidException("size", "Размер должен быть больше нуля");
+        }
+
+        if (from < 0) {
+            throw new ParameterNotValidException("from", "Начало выборки должно быть положительным числом");
+        }
         log.info("findAll()");
-        return employeeService.findAll();
+        return employeeService.findAll(Objects.requireNonNull(SortOrderE.from(sort)), from, size);
     }
 
     @Override
@@ -59,6 +75,6 @@ public class EmployeeControllerImpl implements EmployeeController {
     @DeleteMapping
     public void deleteAll() {
         log.info("deleteAll()");
-        employeeService.findAll();
+        employeeService.deleteAll();
     }
 }

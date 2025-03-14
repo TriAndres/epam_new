@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 public interface EmployeeController {
-    Collection<Employee> findAll();
+    Collection<Employee> findAll(String sort, int from, int size);
 
     Employee create(@Valid @RequestBody Employee employee);
 

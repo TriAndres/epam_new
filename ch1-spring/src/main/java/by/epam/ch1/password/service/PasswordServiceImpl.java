@@ -2,12 +2,14 @@ package by.epam.ch1.password.service;
 
 import by.epam.ch1.exception.PasswordDoesNotExistException;
 import by.epam.ch1.password.model.Password;
+import by.epam.ch1.password.model.SortOrderP;
 import by.epam.ch1.password.repository.PasswordRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Optional;
 
 @Service
@@ -15,10 +17,17 @@ import java.util.Optional;
 @Slf4j
 public class PasswordServiceImpl implements PasswordService {
     private final PasswordRepositoryImpl passwordRepository;
+    private final Comparator<Password> passwordComparator = Comparator.comparing(Password::getRegistrationDateTime);
 
     @Override
-    public Collection<Password> findAll() {
-        return passwordRepository.findAll();
+    public Collection<Password> findAll(SortOrderP sort, int from, int size) {
+        return passwordRepository.findAll()
+                .stream()
+                .sorted(sort.equals(SortOrderP.ASCENDING) ?
+                        passwordComparator : passwordComparator.reversed())
+                .skip(from)
+                .limit(size)
+                .toList();
     }
 
     @Override
