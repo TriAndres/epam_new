@@ -1,19 +1,18 @@
 package by.epam.ch1.password.controller;
 
-import by.epam.ch1.password.model.Password;
-import by.epam.ch1.password.model.SortOrderP;
+import by.epam.ch1.password.dto.PasswordDTO;
 
 import java.util.Collection;
 import java.util.Optional;
 
 public interface PasswordController {
-    Collection<Password> findAll(String sort, int from, int size);
+    Collection<PasswordDTO> findAll(String sort, int from, int size);
 
-    Password create(Password password);
+    PasswordDTO create(PasswordDTO password);
 
-    Password update(Password newPassword);
+    PasswordDTO update(PasswordDTO newPassword);
 
-    Optional<Password> findById(long passwordId);
+    Optional<PasswordDTO> findById(long passwordId);
 
     void deleteById(long passwordId);
 

@@ -1,6 +1,7 @@
 package by.epam.ch1.employee.service;
 
 import by.epam.ch1.argument.model.SortOrderE;
+import by.epam.ch1.employee.dto.EmployeeDTO;
 import by.epam.ch1.employee.model.Employee;
 import by.epam.ch1.employee.repository.EmployeeRepositoryImpl;
 import by.epam.ch1.exception.EmployeeDoesNotExistException;
@@ -8,20 +9,21 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.Optional;
+import java.util.*;
+
+import static by.epam.ch1.employee.mapper.EmployeeMapper.*;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepositoryImpl repository;
-    private final Comparator<Employee>  employeeComparator = Comparator.comparing(Employee::getFirstName);
+    private final Comparator<EmployeeDTO>  employeeComparator = Comparator.comparing(EmployeeDTO::getFirstName);
 
     @Override
-    public Collection<Employee> findAll(SortOrderE sort, int from, int size) {
-        return repository.findAll()
+    public Collection<EmployeeDTO> findAll(SortOrderE sort, int from, int size) {
+        List<EmployeeDTO> employeeDTOS = new ArrayList<>(toListDTO(repository.findAll()));
+        return employeeDTOS
                 .stream()
                 .sorted(sort.equals(SortOrderE.ASCENDING) ?
                         employeeComparator : employeeComparator.reversed())
@@ -31,31 +33,32 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee create(Employee employee) {
+    public EmployeeDTO create(EmployeeDTO employee) {
         employee.setId(getNextId());
-        repository.save(employee);
+        repository.save(toModel(employee));
         log.info("Запись по id = {}", employee.getId());
         return employee;
     }
 
     @Override
-    public Employee update(Employee newEmployee) {
+    public EmployeeDTO update(EmployeeDTO newEmployeeDTO) {
         if (!repository.findAll().isEmpty()) {
-            Employee oldEmployee = repository.findById(newEmployee.getId()).orElseThrow(() -> new EmployeeDoesNotExistException("Сотрудник не найден."));
-            oldEmployee.setFirstName(newEmployee.getFirstName());
-            oldEmployee.setSecondName(newEmployee.getSecondName());
-            log.info("Обновление id = {}", newEmployee.getId());
+            Employee oldEmployee = repository.findById(newEmployeeDTO.getId()).orElseThrow(() -> new EmployeeDoesNotExistException("Сотрудник не найден."));
+            oldEmployee.setFirstName(newEmployeeDTO.getFirstName());
+            oldEmployee.setSecondName(newEmployeeDTO.getSecondName());
+            log.info("Обновление id = {}", newEmployeeDTO.getId());
             repository.save(oldEmployee);
-            return oldEmployee;
+            return toDTO(oldEmployee);
         }
+        log.info("Ошибка при обновлении");
         throw new EmployeeDoesNotExistException("Сотрудник не найден.");
     }
 
     @Override
-    public Optional<Employee> findById(long id) {
+    public Optional<EmployeeDTO> findById(long id) {
         Employee employee = repository.findById(id).orElseThrow(() -> new EmployeeDoesNotExistException("Сотрудник не найден."));
         log.info("Вывод по id = {}", id);
-        return Optional.of(employee);
+        return Optional.of(toDTO(employee));
     }
 
     @Override

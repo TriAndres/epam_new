@@ -1,18 +1,18 @@
 package by.epam.ch1.number.controller;
 
-import by.epam.ch1.number.model.Number;
+import by.epam.ch1.number.dto.NumberDTO;
 
 import java.util.Collection;
 import java.util.Optional;
 
 public interface NumberController {
-    Collection<Number> findAll(String sort, int from, int size);
+    Collection<NumberDTO> findAll(String sort, int from, int size);
 
-    Number create(Number number);
+    NumberDTO create(NumberDTO number);
 
-    Number update(Number number);
+    NumberDTO update(NumberDTO number);
 
-    Optional<Number> findById(long numberId);
+    Optional<NumberDTO> findById(long numberId);
 
     void deleteById(long numberId);
 

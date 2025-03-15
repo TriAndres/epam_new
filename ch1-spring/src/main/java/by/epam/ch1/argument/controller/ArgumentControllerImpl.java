@@ -1,7 +1,7 @@
 package by.epam.ch1.argument.controller;
 
-import by.epam.ch1.argument.Service.ArgumentServiceImpl;
-import by.epam.ch1.argument.model.Argument;
+import by.epam.ch1.argument.service.ArgumentServiceImpl;
+import by.epam.ch1.argument.dto.ArgumentDTO;
 import by.epam.ch1.argument.model.SortOrderE;
 import by.epam.ch1.exception.ParameterNotValidException;
 import jakarta.validation.Valid;
@@ -23,9 +23,9 @@ public class ArgumentControllerImpl implements ArgumentController {
 
     @Override
     @GetMapping
-    public Collection<Argument> findAll(@RequestParam(defaultValue = "desk") String sort,
-                                        @RequestParam(defaultValue = "0") int from,
-                                        @RequestParam(defaultValue = "10") int size) {
+    public Collection<ArgumentDTO> findAll(@RequestParam(defaultValue = "desk") String sort,
+                                           @RequestParam(defaultValue = "0") int from,
+                                           @RequestParam(defaultValue = "10") int size) {
         SortOrderE sortOrder = SortOrderE.from(sort);
         if (sortOrder == null) {
             throw new ParameterNotValidException("sort", "Получено: " + sort + " должно быть: ask или desc");
@@ -45,21 +45,21 @@ public class ArgumentControllerImpl implements ArgumentController {
     @Override
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Argument create(@Valid @RequestBody Argument argument) {
+    public ArgumentDTO create(@Valid @RequestBody ArgumentDTO argument) {
         log.info("create(argument)");
         return argumentService.create(argument);
     }
 
     @Override
     @PutMapping
-    public Argument update(@Valid @RequestBody Argument newArgument) {
+    public ArgumentDTO update(@Valid @RequestBody ArgumentDTO newArgument) {
         log.info("update(newArgument)");
         return argumentService.update(newArgument);
     }
 
     @Override
     @GetMapping("/{numberId}")
-    public Optional<Argument> findById(@PathVariable long numberId) {
+    public Optional<ArgumentDTO> findById(@PathVariable long numberId) {
         log.info("findById(numberId)");
         return argumentService.findById(numberId);
     }

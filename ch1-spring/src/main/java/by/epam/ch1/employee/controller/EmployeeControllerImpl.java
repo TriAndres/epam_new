@@ -1,7 +1,7 @@
 package by.epam.ch1.employee.controller;
 
 import by.epam.ch1.argument.model.SortOrderE;
-import by.epam.ch1.employee.model.Employee;
+import by.epam.ch1.employee.dto.EmployeeDTO;
 import by.epam.ch1.employee.service.EmployeeServiceImpl;
 import by.epam.ch1.exception.ParameterNotValidException;
 import jakarta.validation.Valid;
@@ -24,9 +24,9 @@ public class EmployeeControllerImpl implements EmployeeController {
 
     @Override
     @GetMapping
-    public Collection<Employee> findAll(@RequestParam(defaultValue = "desk") String sort,
-                                        @RequestParam(defaultValue = "0") int from,
-                                        @RequestParam(defaultValue = "10") int size) {
+    public Collection<EmployeeDTO> findAll(@RequestParam(defaultValue = "desk") String sort,
+                                           @RequestParam(defaultValue = "0") int from,
+                                           @RequestParam(defaultValue = "10") int size) {
         SortOrderE sortOrderE = SortOrderE.from(sort);
         if (sortOrderE == null) {
             throw new ParameterNotValidException("sort", "Получено: " + sort + " должно быть: ask или desc");
@@ -45,21 +45,21 @@ public class EmployeeControllerImpl implements EmployeeController {
     @Override
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Employee create(@Valid @RequestBody Employee employee) {
+    public EmployeeDTO create(@Valid @RequestBody EmployeeDTO employee) {
         log.info("create(employee)");
         return employeeService.create(employee);
     }
 
     @Override
     @PutMapping
-    public Employee update(@Valid @RequestBody Employee newEmployee) {
+    public EmployeeDTO update(@Valid @RequestBody EmployeeDTO newEmployee) {
         log.info("update(newEmployee)");
         return employeeService.update(newEmployee);
     }
 
     @Override
     @GetMapping("/{numberId}")
-    public Optional<Employee> findById(@PathVariable long numberId) {
+    public Optional<EmployeeDTO> findById(@PathVariable long numberId) {
         log.info("findById(numberId)");
         return employeeService.findById(numberId);
     }

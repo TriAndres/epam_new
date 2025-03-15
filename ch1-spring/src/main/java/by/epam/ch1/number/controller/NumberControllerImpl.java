@@ -1,6 +1,7 @@
 package by.epam.ch1.number.controller;
 
 import by.epam.ch1.exception.ParameterNotValidException;
+import by.epam.ch1.number.dto.NumberDTO;
 import by.epam.ch1.number.model.Number;
 import by.epam.ch1.number.model.SortOrderN;
 import by.epam.ch1.number.service.NumberServiceImpl;
@@ -23,9 +24,9 @@ public class NumberControllerImpl implements NumberController {
 
     @Override
     @GetMapping
-    public Collection<Number> findAll(@RequestParam(defaultValue = "desk") String sort,
-                                      @RequestParam(defaultValue = "0") int from,
-                                      @RequestParam(defaultValue = "10") int size) {
+    public Collection<NumberDTO> findAll(@RequestParam(defaultValue = "desk") String sort,
+                                         @RequestParam(defaultValue = "0") int from,
+                                         @RequestParam(defaultValue = "10") int size) {
         SortOrderN sortOrderN = SortOrderN.from(sort);
         if (sortOrderN == null) {
             throw new ParameterNotValidException("sort", "Получено: " + sort + " должно быть: ask или desc");
@@ -37,37 +38,43 @@ public class NumberControllerImpl implements NumberController {
         if (from < 0) {
             throw new ParameterNotValidException("from", "Начало выборки должно быть положительным числом");
         }
+        log.info("findAll()");
         return numberService.findAll(Objects.requireNonNull(SortOrderN.from(sort)), from, size);
     }
 
     @Override
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Number create(@Valid @RequestBody Number number) {
+    public NumberDTO create(@Valid @RequestBody NumberDTO number) {
+        log.info("create(number)");
         return numberService.create(number);
     }
 
     @Override
     @PutMapping
-    public Number update(@Valid @RequestBody Number number) {
+    public NumberDTO update(@Valid @RequestBody NumberDTO number) {
+        log.info("update(newNumber)");
         return numberService.update(number);
     }
 
     @Override
     @GetMapping("/{numberId}")
-    public Optional<Number> findById(@PathVariable long numberId) {
+    public Optional<NumberDTO> findById(@PathVariable long numberId) {
+        log.info("findById(numberId)");
         return numberService.findById(numberId);
     }
 
     @Override
     @DeleteMapping("/{numberId}")
     public void deleteById(@PathVariable long numberId) {
+        log.info("deleteById(numberId)");
         numberService.deleteById(numberId);
     }
 
     @Override
     @DeleteMapping
     public void deleteAll() {
+        log.info("deleteAll()");
         numberService.deleteAll();
     }
 }

@@ -7,10 +7,10 @@ import java.util.*;
 
 @Repository
 public class ArgumentRepositoryImpl implements ArgumentRepository {
-    private Map<Long, Argument> arguments = new HashMap<>();
+    private final Map<Long, Argument> arguments = new HashMap<>();
     @Override
-    public Collection<Argument> findAll() {
-        return arguments.values();
+    public List<Argument> findAll() {
+        return new ArrayList<>(arguments.values());
     }
 
     @Override

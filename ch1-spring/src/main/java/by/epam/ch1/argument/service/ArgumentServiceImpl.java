@@ -1,5 +1,6 @@
-package by.epam.ch1.argument.Service;
+package by.epam.ch1.argument.service;
 
+import by.epam.ch1.argument.dto.ArgumentDTO;
 import by.epam.ch1.argument.model.Argument;
 import by.epam.ch1.argument.model.SortOrderE;
 import by.epam.ch1.argument.repository.ArgumentRepositoryImpl;
@@ -8,20 +9,21 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.Optional;
+import java.util.*;
+
+import static by.epam.ch1.argument.mapper.ArgumentMapper.*;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class ArgumentServiceImpl implements ArgumentService {
     private final ArgumentRepositoryImpl argumentRepository;
-    private final Comparator<Argument> argumenDateComparator = Comparator.comparing(Argument::getArgument);
+    private final Comparator<ArgumentDTO> argumenDateComparator = Comparator.comparing(ArgumentDTO::getArgument);
 
     @Override
-    public Collection<Argument> findAll(SortOrderE sort, int from, int size) {
-        return argumentRepository.findAll()
+    public Collection<ArgumentDTO> findAll(SortOrderE sort, int from, int size) {
+        List<ArgumentDTO> argumentDTOS = new ArrayList<>(toListDTO(argumentRepository.findAll()));
+        return argumentDTOS
                 .stream()
                 .sorted(sort.equals(SortOrderE.ASCENDING) ?
                         argumenDateComparator : argumenDateComparator.reversed())
@@ -31,42 +33,43 @@ public class ArgumentServiceImpl implements ArgumentService {
     }
 
     @Override
-    public Argument create(Argument argument) {
+    public ArgumentDTO create(ArgumentDTO argument) {
         argument.setId(getNextId());
-        argumentRepository.save(argument);
+        argumentRepository.save(toModel(argument));
         log.info("Запись по id = {}", argument.getId());
         return argument;
     }
 
     @Override
-    public Argument update(Argument newArgument) {
+    public ArgumentDTO update(ArgumentDTO newArgument) {
         if (!argumentRepository.findAll().isEmpty()) {
             Argument oldArgument = argumentRepository.findById(newArgument.getId()).orElseThrow(() -> new ArgumentDoesNotExistException("Аргумент не найден"));
             oldArgument.setArgument(newArgument.getArgument());
             log.info("Обновление id = {}", newArgument.getId());
             argumentRepository.save(oldArgument);
-            return oldArgument;
+            return toDTO(oldArgument);
         }
+        log.info("Ошибка при обновлении");
         throw new ArgumentDoesNotExistException("Аргумент не найден");
     }
 
     @Override
-    public Optional<Argument> findById(long id) {
+    public Optional<ArgumentDTO> findById(long id) {
         Argument argument = argumentRepository.findById(id).orElseThrow(() -> new ArgumentDoesNotExistException("Аргумент не найден"));
         log.info("Вывод по id = {}", id);
-        return Optional.of(argument);
+        return Optional.of(toDTO(argument));
     }
 
     @Override
     public void deleteById(long id) {
-        argumentRepository.deleteById(id);
         log.info("Удаление по id = {}", id);
+        argumentRepository.deleteById(id);
     }
 
     @Override
     public void deleteAll() {
-        argumentRepository.deleteAll();
         log.info("Удалить всё.");
+        argumentRepository.deleteAll();
     }
 
     private Long getNextId() {

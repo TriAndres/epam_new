@@ -3,18 +3,15 @@ package by.epam.ch1.password.repository;
 import by.epam.ch1.password.model.Password;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Repository
 public class PasswordRepositoryImpl implements PasswordRepository {
     private final Map<Long, Password> passwords = new HashMap<>();
 
     @Override
-    public Collection<Password> findAll() {
-        return passwords.values();
+    public List<Password> findAll() {
+        return new ArrayList<>(passwords.values());
     }
 
     @Override

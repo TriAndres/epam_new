@@ -1,5 +1,6 @@
 package by.epam.ch1.argument.controller;
 
+import by.epam.ch1.argument.dto.ArgumentDTO;
 import by.epam.ch1.argument.model.Argument;
 
 import java.util.Collection;
@@ -8,13 +9,13 @@ import java.util.Optional;
 
 public interface ArgumentController {
 
-    Collection<Argument> findAll(String sort, int from, int size);
+    Collection<ArgumentDTO> findAll(String sort, int from, int size);
 
-    Argument create(Argument argument);
+    ArgumentDTO create(ArgumentDTO argument);
 
-    Argument update(Argument newArgument);
+    ArgumentDTO update(ArgumentDTO newArgument);
 
-    Optional<Argument> findById(long numberId);
+    Optional<ArgumentDTO> findById(long numberId);
 
     void deleteById(long numberId);
 
