@@ -1,19 +1,19 @@
 package by.epam.ch1.number.service;
 
-import by.epam.ch1.number.model.Number;
+import by.epam.ch1.number.dto.NumberDTO;
 import by.epam.ch1.number.model.SortOrderN;
 
 import java.util.Collection;
 import java.util.Optional;
 
 public interface NumberService {
-    Collection<Number> findAll(SortOrderN sort, int from, int size);
+    Collection<NumberDTO> findAll(SortOrderN sort, int from, int size);
 
-    Number create(Number number);
+    NumberDTO create(NumberDTO number);
 
-    Number update(Number number);
+    NumberDTO update(NumberDTO number);
 
-    Optional<Number> findById(long id);
+    Optional<NumberDTO> findById(long id);
 
     void deleteById(long id);
 

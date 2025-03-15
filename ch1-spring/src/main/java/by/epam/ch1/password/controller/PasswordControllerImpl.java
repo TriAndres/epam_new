@@ -1,7 +1,7 @@
 package by.epam.ch1.password.controller;
 
 import by.epam.ch1.exception.ParameterNotValidException;
-import by.epam.ch1.password.model.Password;
+import by.epam.ch1.password.dto.PasswordDTO;
 import by.epam.ch1.password.model.SortOrderP;
 import by.epam.ch1.password.service.PasswordServiceImpl;
 import jakarta.validation.Valid;
@@ -23,9 +23,9 @@ public class PasswordControllerImpl implements PasswordController {
 
     @Override
     @GetMapping
-    public Collection<Password> findAll(@RequestParam(defaultValue = "desc") String sort,
-                                        @RequestParam(defaultValue = "0") int from,
-                                        @RequestParam(defaultValue = "10") int size) {
+    public Collection<PasswordDTO> findAll(@RequestParam(defaultValue = "desc") String sort,
+                                           @RequestParam(defaultValue = "0") int from,
+                                           @RequestParam(defaultValue = "10") int size) {
         SortOrderP sortOrderP = SortOrderP.from(sort);
         if (sortOrderP == null) {
             throw new ParameterNotValidException("sort", "Получено: " + sort + " должно быть: ask или desc");
@@ -43,19 +43,19 @@ public class PasswordControllerImpl implements PasswordController {
     @Override
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Password create(@Valid @RequestBody Password password) {
+    public PasswordDTO create(@Valid @RequestBody PasswordDTO password) {
         return passwordService.create(password);
     }
 
     @Override
     @PutMapping
-    public Password update(@Valid @RequestBody Password newPassword) {
+    public PasswordDTO update(@Valid @RequestBody PasswordDTO newPassword) {
         return passwordService.update(newPassword);
     }
 
     @Override
     @GetMapping("/{passwordId}")
-    public Optional<Password> findById(@PathVariable long passwordId) {
+    public Optional<PasswordDTO> findById(@PathVariable long passwordId) {
         return passwordService.findById(passwordId);
     }
 

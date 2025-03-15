@@ -2,11 +2,11 @@ package by.epam.ch1.password.repository;
 
 import by.epam.ch1.password.model.Password;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 public interface PasswordRepository {
-    Collection<Password> findAll();
+    List<Password> findAll();
 
     Password save(Password password);
 

@@ -1,23 +1,20 @@
 package by.epam.ch1.employee.controller;
 
-import by.epam.ch1.employee.model.Employee;
-import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+import by.epam.ch1.employee.dto.EmployeeDTO;
 
 import java.util.Collection;
 import java.util.Optional;
 
 public interface EmployeeController {
-    Collection<Employee> findAll(String sort, int from, int size);
+    Collection<EmployeeDTO> findAll(String sort, int from, int size);
 
-    Employee create(@Valid @RequestBody Employee employee);
+    EmployeeDTO create(EmployeeDTO employee);
 
-    Employee update(@Valid @RequestBody Employee newEmployee);
+    EmployeeDTO update(EmployeeDTO newEmployee);
 
-    Optional<Employee> findById(@PathVariable long numberId);
+    Optional<EmployeeDTO> findById(long numberId);
 
-    void deleteById(@PathVariable long numberId);
+    void deleteById(long numberId);
 
     void deleteAll();
 }
