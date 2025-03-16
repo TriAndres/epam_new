@@ -1,7 +1,6 @@
 package by.epam.ch1.argument.model;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import by.epam.ch1.validator.notnullstring.NottNullString;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Argument {
     private Long id;
-    @NotNull
-    @NotBlank
+    @NottNullString
     private String argument;
 }

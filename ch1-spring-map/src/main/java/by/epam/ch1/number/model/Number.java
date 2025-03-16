@@ -1,7 +1,8 @@
 package by.epam.ch1.number.model;
 
+import by.epam.ch1.validator.notnulllong.NottNullLong;
+import by.epam.ch1.validator.notnullstring.NottNullString;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +14,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Number {
     private Long id;
-    @NotNull
-    @NotBlank
+    @NottNullLong
     private Integer num;
 }
