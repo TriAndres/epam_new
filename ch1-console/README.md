@@ -31,5 +31,5 @@
 ### Запуск
 Main.java
 
-![Shema](ch1A.jpg)
+![Shema](ch1-console.jpg)
 

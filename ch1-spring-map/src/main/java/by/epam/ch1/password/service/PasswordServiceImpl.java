@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 import static by.epam.ch1.password.mapper.PasswordMapper.*;
@@ -35,6 +36,7 @@ public class PasswordServiceImpl implements PasswordService {
     @Override
     public PasswordDTO create(PasswordDTO password) {
         password.setId(getNextId());
+        password.setRegistrationDateTime(LocalDateTime.now());
         passwordRepository.save(toModel(password));
         log.info("Запись по id = {}", password.getId());
         return password;

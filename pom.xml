@@ -11,7 +11,7 @@
     <modules>
         <module>learn</module>
         <module>ch1-console</module>
-        <module>ch1-spring</module>
+        <module>ch1-spring-map</module>
     </modules>
 
     <properties>
