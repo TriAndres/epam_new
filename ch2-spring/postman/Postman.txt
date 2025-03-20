@@ -1,0 +1,27 @@
+
+
+GET
+http://localhost:8080/employees
+
+GET
+http://localhost:8080/employees/1
+
+POST
+http://localhost:8080/employees
+{
+"firstName": "John",
+"secondName": "Doe",
+"email": "john@example.com"
+}
+
+PUT
+http://localhost:8080/employees/1
+{
+"firstName": "Andrei",
+"secondName": "Doe",
+"email": "andrei@example.com"
+}
+
+DELETE
+http://localhost:8080/employees/1
+
