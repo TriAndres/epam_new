@@ -1,8 +1,5 @@
 package by.epam.password.modell;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 public class Password {
     private Long id;
     private String login;
@@ -11,7 +8,7 @@ public class Password {
     private String secondName;
     private String email;
     private Boolean registration;
-    private LocalDateTime dataRegistration;
+    private String dataRegistration;
 
     public Password() {
     }
@@ -23,7 +20,7 @@ public class Password {
                     String secondName,
                     String email,
                     Boolean registration,
-                    LocalDateTime dataRegistration) {
+                    String dataRegistration) {
         this.id = id;
         this.login = login;
         this.password = password;
@@ -90,24 +87,23 @@ public class Password {
         this.registration = registration;
     }
 
-    public LocalDateTime getDataRegistration() {
+    public String getDataRegistration() {
         return dataRegistration;
     }
 
-    public void setDataRegistration(LocalDateTime dataRegistration) {
+    public void setDataRegistration(String dataRegistration) {
         this.dataRegistration = dataRegistration;
     }
 
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm");
-        return    id + "/"
+        return id + "/"
                 + login + "/"
                 + password + "/"
                 + firstName + "/"
                 + secondName + "/"
                 + email + "/"
                 + registration + "/"
-                + dataRegistration.format(formatter);
+                + dataRegistration;
     }
 }

@@ -4,8 +4,6 @@ import by.epam.password.modell.Password;
 import by.epam.password.repository.PasswordRepositoryImpl;
 
 import java.io.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class PasswordFile extends PasswordRepositoryImpl {
@@ -65,8 +63,8 @@ public class PasswordFile extends PasswordRepositoryImpl {
                                 row[3],
                                 row[4],
                                 row[5],
-                                Boolean.parseBoolean(row[7]),
-                                LocalDateTime.parse(row[8], DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm"))
+                                Boolean.parseBoolean(row[6]),
+                                row[7]
                         )
                 );
             }
