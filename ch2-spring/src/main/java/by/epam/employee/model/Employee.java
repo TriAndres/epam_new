@@ -1,4 +1,4 @@
-package by.epam.password.model;
+package by.epam.employee.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -11,26 +11,27 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
-@Table(name = "password")
-public class Password {
+@Table(name = "employee")
+public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "login")
     @NotNull
     @NotBlank
     @Size(min = 5, message = "login min = 5")
+    @Column(name = "login")
     private String login;
-    @Column(name = "password")
     @NotNull
     @NotBlank
     @Size(min = 5, message = "password min = 5")
+    @Column(name = "password")
     private String password;
     @Column(name = "first_name")
     private String firstName;
@@ -39,8 +40,7 @@ public class Password {
     @Column(name = "email")
     private String email;
     @Column(name = "registration")
-    private Boolean registration;
+    private String registration;
     @Column(name = "data_registration")
-    @DateTimeFormat(pattern = "dd-MM-yyyy hh:mm")
-    private LocalDateTime dataRegistration;
+    private String dataRegistration;
 }
