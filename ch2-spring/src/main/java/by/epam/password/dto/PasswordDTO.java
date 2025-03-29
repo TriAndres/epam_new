@@ -1,15 +1,11 @@
-package by.epam.employee.dto;
+package by.epam.password.dto;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class EmployeeDTO {
+@Builder
+public class PasswordDTO {
     private Long id;
     private String login;
     private String password;
