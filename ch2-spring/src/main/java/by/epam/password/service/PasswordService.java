@@ -6,10 +6,13 @@ import java.util.Collection;
 import java.util.Optional;
 
 public interface PasswordService {
-    Collection<PasswordDTO> findAll();
+    Collection<PasswordDTO> passwordFindAll();
+
     PasswordDTO passwordCreate(PasswordDTO passwordDTO);
-    PasswordDTO passwordUpdate(long id, PasswordDTO passwordDTO);
-    PasswordDTO passwordUpdate2(PasswordDTO passwordDTO);
+
+    PasswordDTO passwordUpdate(PasswordDTO passwordDTO);
+
     Optional<PasswordDTO> passwordFindById(long id);
-    void passwordDeleteAll(long id);
+
+    void passwordDeleteById(long id);
 }

@@ -6,6 +6,7 @@ import by.epam.password.model.Password;
 import java.util.List;
 
 public class PasswordMapper {
+
     public static PasswordDTO toDTO(Password password) {
         return PasswordDTO
                 .builder()
@@ -30,7 +31,6 @@ public class PasswordMapper {
     public static Password toModel(PasswordDTO passwordDTO) {
         return Password
                 .builder()
-                .id(passwordDTO.getId())
                 .login(passwordDTO.getLogin())
                 .password(passwordDTO.getPassword())
                 .firstName(passwordDTO.getFirstName())

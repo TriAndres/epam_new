@@ -8,13 +8,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDateTime;
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "password")
 public class Password {
@@ -22,25 +20,30 @@ public class Password {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "login")
     @NotNull
     @NotBlank
     @Size(min = 5, message = "login min = 5")
+    @Column(name = "login")
     private String login;
-    @Column(name = "password")
     @NotNull
     @NotBlank
     @Size(min = 5, message = "password min = 5")
+    @Column(name = "password")
     private String password;
+    @NotNull
+    @NotBlank
     @Column(name = "first_name")
     private String firstName;
+    @NotNull
+    @NotBlank
     @Column(name = "second_name")
     private String secondName;
+    @NotNull
+    @NotBlank
     @Column(name = "email")
     private String email;
     @Column(name = "registration")
-    private Boolean registration;
+    private String registration;
     @Column(name = "data_registration")
-    @DateTimeFormat(pattern = "dd-MM-yyyy hh:mm")
-    private LocalDateTime dataRegistration;
+    private String dataRegistration;
 }
