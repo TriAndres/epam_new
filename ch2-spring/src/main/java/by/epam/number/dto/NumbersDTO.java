@@ -1,13 +1,11 @@
 package by.epam.number.dto;
 
-import jakarta.persistence.Column;
-import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class NumberDTO {
+public class NumbersDTO {
     private Long id;
     private Integer num;
 }
