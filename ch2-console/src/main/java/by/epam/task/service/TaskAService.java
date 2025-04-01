@@ -1,27 +1,23 @@
 package by.epam.task.service;
 
-import by.epam.exception.NumbersDoesNotExistException;
+import by.epam.number.file.NumbersFile;
 import by.epam.number.model.Numbers;
-import by.epam.number.repository.NumbersRepository;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-@RequiredArgsConstructor
-@Slf4j
-public class TaskAService {
-    private final NumbersRepository numbersRepository;
+public class TaskAService extends Task{
 
-    public String taskA1() {
+    public TaskAService(NumbersFile numbersFile) {
+        super(numbersFile);
+    }
+
+    public void taskA1() {
         String result;
         try {
-            if (numbersRepository.findAll().isEmpty()) {
-                throw new NumbersDoesNotExistException("Заполните список.");
+            if (numbersFile.findAll().isEmpty()) {
+                throw new Exception("Заполните список.");
             }
-            List<Numbers> list = numbersRepository.findAll()
+            List<Numbers> list = numbersFile.findAll()
                     .stream()
                     .sorted((a, b) -> a.getNum() - b.getNum())
                     .toList();
@@ -35,13 +31,9 @@ public class TaskAService {
             int max = list.getLast().getNum();
             int maxLength = String.valueOf(max).length();
             result += "max=" + max + " lemgth=" + maxLength + "\n";
-
-            log.info("Вывод задачи taskA1()");
-
-            return result;
+            System.out.println(result);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return "Заполните список.";
     }
 }

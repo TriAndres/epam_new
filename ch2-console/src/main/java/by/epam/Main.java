@@ -2,6 +2,7 @@ package by.epam;
 
 import by.epam.number.menu.NumberServiceMenu;
 import by.epam.password.menu.PasswordMenu;
+import by.epam.task.menu.TaskAServiceMenu;
 
 import static by.epam.metods.console.Console.getString;
 
@@ -21,6 +22,7 @@ public class Main {
         System.out.println("\n\tВыбирите действие:" +
                 "\n\t1 - меню пароля." +
                 "\n\t2 - меню цифр." +
+                "\n\t3 - меню задач." +
                 "\n\t0 - выход из программы"
         );
         return getString();
@@ -33,6 +35,9 @@ public class Main {
                 break;
             case "2":
                 new NumberServiceMenu().game();
+                break;
+            case "3":
+                new TaskAServiceMenu().game();
                 break;
             case "0":
                 System.out.println("Выход из меню.");
