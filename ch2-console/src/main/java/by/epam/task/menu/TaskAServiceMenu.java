@@ -8,6 +8,7 @@ public class TaskAServiceMenu extends Menu {
     String menu() {
         System.out.println("\n\tВведите действие:" +
                 "\n\t1 - 1 задача." +
+                "\n\t2 - 2 задача." +
                 "\n\t0 - выход из меню"
         );
         return getString();
@@ -18,6 +19,9 @@ public class TaskAServiceMenu extends Menu {
         switch (line) {
             case "1":
                 taskAService().taskA1();
+                break;
+            case "2":
+                taskAService().taskA2();
                 break;
             case "0":
                 System.out.println("Выход из меню.");

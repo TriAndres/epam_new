@@ -16,4 +16,9 @@ public class TaskAController {
     public String task1() {
         return taskA1Service.taskA1();
     }
+
+    @GetMapping("/task2")
+    public String task2() {
+        return taskA1Service.taskA2();
+    }
 }
