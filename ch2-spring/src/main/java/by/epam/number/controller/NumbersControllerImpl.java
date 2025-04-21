@@ -1,4 +1,4 @@
-package by.epam.number.Controller;
+package by.epam.number.controller;
 
 import by.epam.number.dto.NumbersDTO;
 import by.epam.number.service.NumbersService;
@@ -52,5 +52,20 @@ public class NumbersControllerImpl implements NumbersController {
     public void numbersDeleteById(@PathVariable long id) {
         log.info("numbersDeleteById(id)");
         numbersService.numbersDeleteById(id);
+    }
+
+    @GetMapping("/task1")
+    public String task1() {
+        return numbersService.taskA1();
+    }
+
+    @GetMapping("/task2")
+    public String task2() {
+        return numbersService.taskA2();
+    }
+
+    @GetMapping("/task3")
+    public String task3() {
+        return numbersService.taskA3();
     }
 }

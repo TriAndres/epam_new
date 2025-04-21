@@ -15,4 +15,11 @@ public interface NumbersService {
     Optional<NumbersDTO> numbersFindById(long id);
 
     void numbersDeleteById(long id);
+
+    String taskA1();
+
+    String taskA2();
+
+    String taskA3();
+
 }

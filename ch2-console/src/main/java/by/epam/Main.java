@@ -2,7 +2,7 @@ package by.epam;
 
 import by.epam.number.menu.NumberServiceMenu;
 import by.epam.password.menu.PasswordMenu;
-import by.epam.task.menu.TaskAServiceMenu;
+import by.epam.number.menu.TaskAServiceMenu;
 
 import static by.epam.metods.console.Console.getString;
 

@@ -1,4 +1,4 @@
-package by.epam.number.Controller;
+package by.epam.number.controller;
 
 import by.epam.number.dto.NumbersDTO;
 

@@ -1,12 +1,11 @@
-package by.epam.task.service;
+package by.epam.number.service;
 
 import by.epam.number.file.NumbersFile;
 import by.epam.number.model.Numbers;
 
-
 import java.util.List;
 
-public class TaskAService extends Task{
+public class TaskAService extends Task {
 
     public TaskAService(NumbersFile numbersFile) {
         super(numbersFile);
@@ -57,6 +56,35 @@ public class TaskAService extends Task{
         }
     }
 
+
+    public void lesson3() {
+        String result;
+        int lineSize = 10;
+        try {
+            if (numbersFile.findAll().isEmpty()) {
+                throw new Exception("Заполните список.");
+            }
+            result = "3. Вывести на консоль те числа, длина которых меньше (больше) средней, а также длину.\n";
+            int sum = numbersFile.findAll().stream().mapToInt(Numbers::getNum).sum();
+            result += "Числа меньше средней:\n";
+            result += show(numbersFile.findAll()
+                            .stream()
+                            .filter(i -> i.getNum() > sum / numbersFile.findAll().size())
+                            .toList()
+                    , result, lineSize);
+            result += "\nЧисла больше средней:\n";
+            result += show(numbersFile.findAll()
+                            .stream()
+                            .filter(i -> i.getNum() < sum / numbersFile.findAll().size())
+                            .toList()
+                    , result, lineSize);
+            System.out.println(result);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
     private String show(List<Numbers> list, String result, int lineSize) {
         int count = 0;
         result = "Вывод: number/length\n";
@@ -64,7 +92,7 @@ public class TaskAService extends Task{
             result += "\t" + numbers.getNum() + "/" + String.valueOf(numbers.getNum()).length();
             count++;
             if (count == lineSize) {
-                result +="\n";
+                result += "\n";
                 count = 0;
             }
         }

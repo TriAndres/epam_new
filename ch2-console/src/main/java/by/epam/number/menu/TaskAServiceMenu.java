@@ -1,7 +1,8 @@
-package by.epam.task.menu;
+package by.epam.number.menu;
 
 import static by.epam.metods.console.Console.getString;
-import static by.epam.task.controller.TackController.taskAService;
+import static by.epam.number.controller.NumbersController.taskAService;
+
 
 public class TaskAServiceMenu extends Menu {
     @Override

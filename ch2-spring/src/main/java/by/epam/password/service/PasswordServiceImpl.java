@@ -1,6 +1,6 @@
 package by.epam.password.service;
 
-import by.epam.exception.PasswordDoesNotExistException;
+import by.epam.password.exception.PasswordDoesNotExistException;
 import by.epam.password.dto.PasswordDTO;
 import by.epam.password.model.Password;
 import by.epam.password.repository.PasswordRepository;

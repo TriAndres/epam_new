@@ -25,3 +25,17 @@ POST http://localhost:8080/api/numbers
 ============================================
 DELETE http://localhost:8080/api/numbers/1
 ============================================
+
+
+=====================================================================
+=====================================================================
+GET http://localhost:8080/api/numbers/task1
+===
+GET http://localhost:8080/api/numbers/task2
+GET http://localhost:8080/api/numbers/task3
+GET http://localhost:8080/api/numbers/task4
+GET http://localhost:8080/api/numbers/task5
+GET http://localhost:8080/api/numbers/task6
+GET http://localhost:8080/api/numbers/task7
+GET http://localhost:8080/api/numbers/task8
+GET http://localhost:8080/api/numbers/task9
