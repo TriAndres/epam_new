@@ -14,8 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 @Builder
 @Slf4j
 @Entity
-@Table(name = "number")
-public class Number {
+@Table(name = "numbers")
+public class Numbers {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
