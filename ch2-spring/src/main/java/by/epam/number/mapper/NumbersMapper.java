@@ -11,7 +11,7 @@ public class NumbersMapper {
         return NumbersDTO
                 .builder()
                 .id(numbers.getId())
-                .num(numbers.getNum())
+                .num(numbers.getNumbers())
                 .build();
     }
 
@@ -26,7 +26,7 @@ public class NumbersMapper {
         return Numbers
                 .builder()
                 .id(numbersDTO.getId())
-                .num(numbersDTO.getNum())
+                .numbers(numbersDTO.getNum())
                 .build();
     }
 

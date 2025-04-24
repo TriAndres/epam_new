@@ -30,7 +30,6 @@ DELETE http://localhost:8080/api/numbers/1
 =====================================================================
 =====================================================================
 GET http://localhost:8080/api/numbers/task1
-===
 GET http://localhost:8080/api/numbers/task2
 GET http://localhost:8080/api/numbers/task3
 GET http://localhost:8080/api/numbers/task4

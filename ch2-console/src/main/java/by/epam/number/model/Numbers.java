@@ -2,14 +2,14 @@ package by.epam.number.model;
 
 public class Numbers {
     private Long id;
-    private Integer num;
+    private Integer numbers;
 
     public Numbers() {
     }
 
     public Numbers(Long id, Integer num) {
         this.id = id;
-        this.num = num;
+        this.numbers = num;
     }
 
     public Long getId() {
@@ -20,16 +20,16 @@ public class Numbers {
         this.id = id;
     }
 
-    public Integer getNum() {
-        return num;
+    public Integer getNumbers() {
+        return numbers;
     }
 
-    public void setNum(Integer num) {
-        this.num = num;
+    public void setNumbers(Integer numbers) {
+        this.numbers = numbers;
     }
 
     @Override
     public String toString() {
-        return String.format("%d/%d",id,num);
+        return String.format("%d/%d",id, numbers);
     }
 }

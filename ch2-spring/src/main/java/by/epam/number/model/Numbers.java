@@ -22,5 +22,5 @@ public class Numbers {
     private Long id;
     @NotNull
     @Column(name = "num")
-    private Integer num;
+    private Integer numbers;
 }
