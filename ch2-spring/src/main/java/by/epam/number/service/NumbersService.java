@@ -22,4 +22,15 @@ public interface NumbersService {
 
     String taskA3();
 
+    String taskA4();
+
+    String taskA5();
+
+    String taskA6();
+
+    String taskA7();
+
+    String taskA8();
+
+    String taskA9();
 }

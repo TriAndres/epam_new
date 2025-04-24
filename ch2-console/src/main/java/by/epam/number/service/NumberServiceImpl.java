@@ -18,7 +18,7 @@ public class NumberServiceImpl implements NumberService {
         int count = 0;
         if (!numbersFile.findAll().isEmpty()) {
             for (Numbers num : numbersFile.findAll()) {
-                System.out.print("\tid=" + num.getId() + " num=" + num.getNum());
+                System.out.print("\tid=" + num.getId() + " num=" + num.getNumbers());
                 count++;
                 if (count == countLine) {
                     System.out.println();

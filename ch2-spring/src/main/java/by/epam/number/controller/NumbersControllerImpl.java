@@ -15,7 +15,7 @@ import java.util.Optional;
 @RequestMapping("/api/numbers")
 @RequiredArgsConstructor
 @Slf4j
-public class NumbersControllerImpl implements NumbersController {
+public class NumbersControllerImpl implements NumbersController, NumbersTaskController {
     private final NumbersService numbersService;
 
     @Override
@@ -54,18 +54,57 @@ public class NumbersControllerImpl implements NumbersController {
         numbersService.numbersDeleteById(id);
     }
 
+    @Override
     @GetMapping("/task1")
-    public String task1() {
+    public String taskA1() {
         return numbersService.taskA1();
     }
 
+    @Override
     @GetMapping("/task2")
-    public String task2() {
+    public String taskA2() {
         return numbersService.taskA2();
     }
 
+    @Override
     @GetMapping("/task3")
-    public String task3() {
+    public String taskA3() {
         return numbersService.taskA3();
+    }
+
+    @Override
+    @GetMapping("/task4")
+    public String taskA4() {
+        return numbersService.taskA4();
+    }
+
+    @Override
+    @GetMapping("/task5")
+    public String taskA5() {
+        return "";
+    }
+
+    @Override
+    @GetMapping("/task6")
+    public String taskA6() {
+        return "";
+    }
+
+    @Override
+    @GetMapping("/task7")
+    public String taskA7() {
+        return "";
+    }
+
+    @Override
+    @GetMapping("/task8")
+    public String taskA8() {
+        return "";
+    }
+
+    @Override
+    @GetMapping("/task9")
+    public String taskA9() {
+        return "";
     }
 }
