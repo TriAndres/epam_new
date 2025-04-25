@@ -208,7 +208,38 @@ public class NumbersServiceImpl implements NumbersService {
 
     @Override
     public String taskA5() {
-        return "";
+        String result;
+        int lineSize = 10;
+        try {
+            if (numbersRepository.findAll().isEmpty()) {
+                throw new Exception("Заполните список.");
+            }
+            result = "5. Найти количество чисел, содержащих только четные цифры, а среди них —" +
+                    "  количество чисел с равным числом четных и нечетных цифр.\n";
+            show(numbersRepository.findAll()
+                            .stream()
+                            .filter((i) -> {
+                                        String[] line = String.valueOf(i.getNumbers()).split("");
+                                        int sum1 = 0;
+                                        int sum2 = 0;
+                                        for (String s : line) {
+                                            if (Integer.parseInt(s) % 2 == 0) {
+                                                ++sum1;
+                                            }
+                                            if (Integer.parseInt(s) % 2 != 0) {
+                                                ++sum2;
+                                            }
+                                        }
+                                        return sum1 == sum2 && i.getNumbers() % 2 == 0;
+                                    }
+                            )
+                            .toList()
+                    , result, lineSize);
+            System.out.println(result);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return "Заполните список.";
     }
 
     @Override

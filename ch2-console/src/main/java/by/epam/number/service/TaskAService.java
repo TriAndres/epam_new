@@ -156,6 +156,96 @@ public class TaskAService extends Task {
         }
     }
 
+    public void taskA5() {
+        String result;
+        int lineSize = 10;
+        try {
+            if (numbersFile.findAll().isEmpty()) {
+                throw new Exception("Заполните список.");
+            }
+            result = "5. Найти количество чисел, содержащих только четные цифры, а среди них —" +
+                    "  количество чисел с равным числом четных и нечетных цифр.\n";
+            show(numbersFile.findAll()
+                            .stream()
+                            .filter((i) -> {
+                                        String[] line = String.valueOf(i.getNumbers()).split("");
+                                        int sum1 = 0;
+                                        int sum2 = 0;
+                                        for (String s : line) {
+                                            if (Integer.parseInt(s) % 2 == 0) {
+                                                ++sum1;
+                                            }
+                                            if (Integer.parseInt(s) % 2 != 0) {
+                                                ++sum2;
+                                            }
+                                        }
+                                        return sum1 == sum2 && i.getNumbers() % 2 == 0;
+                                    }
+                            )
+                            .toList()
+                    , result, lineSize);
+            System.out.println(result);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void taskA6() {
+        String result;
+        int lineSize = 10;
+        try {
+            if (numbersFile.findAll().isEmpty()) {
+                throw new Exception("Заполните список.");
+            }
+            result = "6. Найти число, цифры в котором идут в строгом порядке возрастания. Если" +
+                    "  таких чисел несколько, найти первое из них.\n";
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void taskA7() {
+        String result;
+        int lineSize = 10;
+        try {
+            if (numbersFile.findAll().isEmpty()) {
+                throw new Exception("Заполните список.");
+            }
+            result = "7. Найти число, состоящее только из различных цифр. Если таких чисел не-" +
+                    "сколько, найти первое из них.\n";
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void taskA8() {
+        String result;
+        int lineSize = 10;
+        try {
+            if (numbersFile.findAll().isEmpty()) {
+                throw new Exception("Заполните список.");
+            }
+            result = "8. Среди чисел найти число-палиндром. Если таких чисел больше одного," +
+                    "  найти второе.\n";
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void taskA9() {
+        String result;
+        int lineSize = 10;
+        try {
+            if (numbersFile.findAll().isEmpty()) {
+                throw new Exception("Заполните список.");
+            }
+            result = "9. Найти корни квадратного уравнения. Параметры уравнения передавать" +
+                    " с командной строкой.\n";
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     private String show(List<Numbers> list, String result, int lineSize) {
         int count = 0;
         result = "Вывод: number/length\n";
