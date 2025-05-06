@@ -18,6 +18,19 @@ public class Console {
         return a;
     }
 
+    public static Double getDouble() {
+        double a = 0.0;
+        while (true) {
+            if (scanner.hasNextDouble()) {
+                a = scanner.nextDouble();
+                break;
+            } else {
+                scanner.nextLine();
+            }
+        }
+        return a;
+    }
+
     public static String getString() {
         return scanner.next();
     }

@@ -3,7 +3,12 @@ package by.epam.number.service;
 import by.epam.number.file.NumbersFile;
 import by.epam.number.model.Numbers;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static by.epam.metods.console.Console.getDouble;
 
 public class TaskAService extends Task {
 
@@ -55,7 +60,6 @@ public class TaskAService extends Task {
             System.out.println(e.getMessage());
         }
     }
-
 
     public void taskA3() {
         String result;
@@ -147,7 +151,7 @@ public class TaskAService extends Task {
                     .stream()
                     .filter(i -> String.valueOf(i.getNum()).length() == size)
                     .sorted((a, b) -> b.getNum() - a.getNum())
-                    .sorted((a,b) -> a.getVarious() - b.getVarious())
+                    .sorted((a, b) -> a.getVarious() - b.getVarious())
                     .toList();
             result += nums1.getFirst().toString() + "\n";
             System.out.println(result);
@@ -192,13 +196,37 @@ public class TaskAService extends Task {
 
     public void taskA6() {
         String result;
-        int lineSize = 10;
         try {
             if (numbersFile.findAll().isEmpty()) {
                 throw new Exception("Заполните список.");
             }
             result = "6. Найти число, цифры в котором идут в строгом порядке возрастания. Если" +
                     "  таких чисел несколько, найти первое из них.\n";
+            List<Numbers> list = numbersFile.findAll()
+                    .stream()
+                    .filter((a) -> {
+                                String[] line = String.valueOf(a.getNumbers()).split("");
+                                for (int i = 0; i < line.length - 1; i++) {
+                                    boolean flag = true;
+                                    for (int j = 1; j < line.length; j++) {
+                                        if (!(Integer.parseInt(line[i]) < Integer.parseInt(line[j]))) {
+                                            flag = false;
+                                            break;
+                                        }
+                                    }
+                                    return flag;
+                                }
+                                return false;
+                            }
+                    )
+                    .toList();
+            if (!numbersFile.findAll().isEmpty()) {
+                result += "Вывод: id/number/length\n";
+                result += list.getFirst().getId() + "/" + list.getFirst().getNumbers() + "/" + String.valueOf(list.getFirst().getNumbers()).length() + "\n";
+            } else {
+                result += "Список пуст.\n";
+            }
+            System.out.println(result);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -206,13 +234,37 @@ public class TaskAService extends Task {
 
     public void taskA7() {
         String result;
-        int lineSize = 10;
         try {
             if (numbersFile.findAll().isEmpty()) {
                 throw new Exception("Заполните список.");
             }
             result = "7. Найти число, состоящее только из различных цифр. Если таких чисел не-" +
                     "сколько, найти первое из них.\n";
+            List<Numbers> list = numbersFile.findAll().stream()
+                    .filter((a) -> {
+                                String[] line = String.valueOf(a.getNumbers()).split("");
+                                for (int i = 0; i < line.length - 1; i++) {
+                                    int count = 0;
+                                    for (int j = 0; j < line.length; j++) {
+                                        if (Integer.parseInt(line[i]) == Integer.parseInt(line[j])) {
+                                            count++;
+                                            if (count > 1) {
+                                                return false;
+                                            }
+                                        }
+                                    }
+                                    return true;
+                                }
+                                return false;
+                            }
+                    ).toList();
+            if (!numbersFile.findAll().isEmpty()) {
+                result += "Вывод: id/number/length\n";
+                result += "\t" + list.getFirst().getId() + "/" + list.getFirst().getNumbers() + "/" + String.valueOf(list.getFirst().getNumbers()).length() + "\n";
+            } else {
+                result += "Список пуст.\n";
+            }
+            System.out.println(result);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -220,13 +272,26 @@ public class TaskAService extends Task {
 
     public void taskA8() {
         String result;
-        int lineSize = 10;
         try {
             if (numbersFile.findAll().isEmpty()) {
                 throw new Exception("Заполните список.");
             }
             result = "8. Среди чисел найти число-палиндром. Если таких чисел больше одного," +
                     "  найти второе.\n";
+            List<Numbers> list = numbersFile.findAll().stream()
+                    .filter((a) -> {
+                                String num1 = String.valueOf(a.getNumbers());
+                                StringBuilder num2 = new StringBuilder(num1).reverse();
+                                return num1.equalsIgnoreCase(num2.toString());
+                            }
+                    ).toList();
+            if (list.size() > 1) {
+                result += "Вывод: id/number/length\n";
+                result += list.get(1).getId() + "/" + list.get(1).getNumbers() + "/" + String.valueOf(list.get(1).getNumbers()).length() + "\n";
+            } else {
+                result += "Список пуст.\n";
+            }
+            System.out.println(result);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -234,13 +299,28 @@ public class TaskAService extends Task {
 
     public void taskA9() {
         String result;
-        int lineSize = 10;
         try {
-            if (numbersFile.findAll().isEmpty()) {
-                throw new Exception("Заполните список.");
-            }
             result = "9. Найти корни квадратного уравнения. Параметры уравнения передавать" +
                     " с командной строкой.\n";
+            result += "ax^2 + bx + c = 0\n";
+            System.out.println("Введите а (1):");
+            double a = getDouble();
+            System.out.println("Введите b (-8):");
+            double b = getDouble();
+            System.out.println("Введите c (15):");
+            double c = getDouble();
+            double D = b * b - (4 * a * c);
+            if (D > 0) {
+                double x1 = (-b - Math.sqrt(D)) / (2 * a);
+                double x2 = (-b + Math.sqrt(D)) / (2 * a);
+                result += "Корени уравнения: x1 = " + x1 + ", x2 = " + x2 + "\n";
+            } else if (D == 0) {
+                double x = -b / (2 * a);
+                result += "Уравнение имеет единственный корень: x = " + x + "\n";
+            } else {
+                result += "Уравнение не имеет действительных корней!" + "\n";
+            }
+            System.out.println(result);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
