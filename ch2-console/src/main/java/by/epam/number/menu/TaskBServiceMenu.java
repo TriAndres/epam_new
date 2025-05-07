@@ -2,9 +2,9 @@ package by.epam.number.menu;
 
 import static by.epam.metods.console.Console.getString;
 import static by.epam.number.controller.NumbersController.taskAServiceImpl;
+import static by.epam.number.controller.NumbersController.taskBServiceImpl;
 
-
-public class TaskAServiceMenu extends Menu {
+public class TaskBServiceMenu extends Menu {
     @Override
     String menu() {
         System.out.println("\n\tВведите действие:" +
@@ -26,31 +26,31 @@ public class TaskAServiceMenu extends Menu {
     void select(String line) {
         switch (line) {
             case "1":
-                taskAServiceImpl().taskA1();
+                taskBServiceImpl().taskB1();
                 break;
             case "2":
-                taskAServiceImpl().taskA2();
+                taskBServiceImpl().taskB2();
                 break;
             case "3":
-                taskAServiceImpl().taskA3();
+                taskBServiceImpl().taskB3();
                 break;
             case "4":
-                taskAServiceImpl().taskA4();
+                taskBServiceImpl().taskB4();
                 break;
             case "5":
-                taskAServiceImpl().taskA5();
+                taskBServiceImpl().taskB5();
                 break;
             case "6":
-                taskAServiceImpl().taskA6();
+                taskBServiceImpl().taskB6();
                 break;
             case "7":
-                taskAServiceImpl().taskA7();
+                taskBServiceImpl().taskB7();
                 break;
             case "8":
-                taskAServiceImpl().taskA8();
+                taskBServiceImpl().taskB8();
                 break;
             case "9":
-                taskAServiceImpl().taskA9();
+                taskBServiceImpl().taskB9();
                 break;
             case "0":
                 System.out.println("Выход из меню.");

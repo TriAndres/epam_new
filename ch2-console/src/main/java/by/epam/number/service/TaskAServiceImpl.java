@@ -1,70 +1,29 @@
 package by.epam.number.service;
 
-import by.epam.number.dto.NumbersDTO;
-import by.epam.number.exception.NumbersDoesNotExistException;
+import by.epam.number.file.NumbersFile;
 import by.epam.number.model.Numbers;
-import by.epam.number.repository.NumbersRepository;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import static by.epam.number.mapper.NumbersMapper.*;
+import static by.epam.metods.console.Console.getDouble;
 
-@Service
-@RequiredArgsConstructor
-@Slf4j
-public class NumbersServiceImpl implements NumbersService {
+public class TaskAServiceImpl extends Task implements TaskAService {
 
-    private final NumbersRepository numbersRepository;
-
-    @Override
-    public Collection<NumbersDTO> numbersFindAll() {
-        return toListDTO(numbersRepository.findAll());
+    public TaskAServiceImpl(NumbersFile numbersFile) {
+        super(numbersFile);
     }
 
     @Override
-    public NumbersDTO numbersCreate(NumbersDTO numbersDTO) {
-        Numbers numbers = toModel(numbersDTO);
-        return toDTO(numbersRepository.save(numbers));
-    }
-
-    @Override
-    public NumbersDTO numbersUpdate(NumbersDTO newNumbersDTO) {
-        try {
-            Numbers oldNumbers = numbersRepository
-                    .findById(newNumbersDTO.getId())
-                    .orElseThrow();
-            oldNumbers.setNumbers(newNumbersDTO.getNum());
-            numbersRepository.save(oldNumbers);
-            return toDTO(oldNumbers);
-        } catch (RuntimeException e) {
-            throw new NumbersDoesNotExistException("Введите правильно:id, цифру");
-        }
-    }
-
-    @Override
-    public Optional<NumbersDTO> numbersFindById(long id) {
-        return Optional.of(toDTO(numbersRepository
-                .findById(id)
-                .orElseThrow(() -> new NumbersDoesNotExistException("Цифра не найдена."))));
-    }
-
-    @Override
-    public void numbersDeleteById(long id) {
-        numbersRepository.deleteById(id);
-    }
-
-    @Override
-    public String taskA1() {
+    public void taskA1() {
         String result;
         try {
-            if (numbersRepository.findAll().isEmpty()) {
-                throw new NumbersDoesNotExistException("Заполните список.");
+            if (numbersFile.findAll().isEmpty()) {
+                throw new Exception("Заполните список.");
             }
-            List<Numbers> list = numbersRepository.findAll()
+            List<Numbers> list = numbersFile.findAll()
                     .stream()
                     .sorted((a, b) -> a.getNumbers() - b.getNumbers())
                     .toList();
@@ -78,81 +37,69 @@ public class NumbersServiceImpl implements NumbersService {
             int max = list.getLast().getNumbers();
             int maxLength = String.valueOf(max).length();
             result += "max=" + max + " lemgth=" + maxLength + "\n";
-
-            log.info("Вывод задачи taskA1()");
-
-            return result;
+            System.out.println(result);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return "Заполните список.";
     }
 
     @Override
-    public String taskA2() {
+    public void taskA2() {
         String result;
         int lineSize = 10;
         try {
-            if (numbersRepository.findAll().isEmpty()) {
-                throw new NumbersDoesNotExistException("Заполните список.");
+            if (numbersFile.findAll().isEmpty()) {
+                throw new Exception("Заполните список.");
             }
             result = "2. Упорядочить и вывести числа в порядке возрастания (убывания) значений их длины.\n";
             result += "В порядке возрастания значений:\n";
-            result += show(numbersRepository.findAll().stream().sorted((a, b) -> a.getNumbers() - b.getNumbers()).toList(), result, lineSize);
+            result += show(numbersFile.findAll().stream().sorted((a, b) -> a.getNumbers() - b.getNumbers()).toList(), result, lineSize);
 
             result += "\nВ порядке убывания значений:\n";
-            result += show(numbersRepository.findAll().stream().sorted((a, b) -> b.getNumbers() - a.getNumbers()).toList(), result, lineSize);
-
-            log.info("Вывод задачи taskA1()");
-
-            return result;
+            result += show(numbersFile.findAll().stream().sorted((a, b) -> b.getNumbers() - a.getNumbers()).toList(), result, lineSize);
+            System.out.println(result);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return "Заполните список.";
     }
 
     @Override
-    public String taskA3() {
+    public void taskA3() {
         String result;
         int lineSize = 10;
         try {
-            if (numbersRepository.findAll().isEmpty()) {
-                throw new NumbersDoesNotExistException("Заполните список.");
+            if (numbersFile.findAll().isEmpty()) {
+                throw new Exception("Заполните список.");
             }
             result = "3. Вывести на консоль те числа, длина которых меньше (больше) средней, а также длину.\n";
-            int sum = numbersRepository.findAll().stream().mapToInt(Numbers::getNumbers).sum();
+            int sum = numbersFile.findAll().stream().mapToInt(Numbers::getNumbers).sum();
             result += "Числа меньше средней:\n";
-            result += show(numbersRepository.findAll()
+            result += show(numbersFile.findAll()
                             .stream()
-                            .filter(i -> i.getNumbers() > sum / numbersRepository.findAll().size())
+                            .filter(i -> i.getNumbers() > sum / numbersFile.findAll().size())
                             .toList()
                     , result, lineSize);
             result += "\nЧисла больше средней:\n";
-            result += show(numbersRepository.findAll()
+            result += show(numbersFile.findAll()
                             .stream()
-                            .filter(i -> i.getNumbers() < sum / numbersRepository.findAll().size())
+                            .filter(i -> i.getNumbers() < sum / numbersFile.findAll().size())
                             .toList()
                     , result, lineSize);
-            return result;
-
+            System.out.println(result);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return "Заполните список.";
     }
 
     @Override
-    public String taskA4() {
+    public void taskA4() {
         String result;
-        int lineSize = 10;
         try {
-            if (numbersRepository.findAll().isEmpty()) {
-                throw new NumbersDoesNotExistException("Заполните список.");
+            if (numbersFile.findAll().isEmpty()) {
+                throw new Exception("Заполните список.");
             }
             result = "4. Найти число, в котором число различных цифр минимально. Если таких " +
                     "чисел несколько, найти первое из них.(число из 6 цифр)\n";
-            @Getter
             class Num {
                 private final Long id;
                 private final Integer num;
@@ -164,6 +111,18 @@ public class NumbersServiceImpl implements NumbersService {
                     this.various = various;
                 }
 
+                public Long getId() {
+                    return id;
+                }
+
+                public Integer getNum() {
+                    return num;
+                }
+
+                public Integer getVarious() {
+                    return various;
+                }
+
                 @Override
                 public String toString() {
                     return id + "/" + num + "/" + various;
@@ -171,7 +130,7 @@ public class NumbersServiceImpl implements NumbersService {
             }
             List<Num> nums = new ArrayList<>();
             Map<Integer, Integer> map = new HashMap<>();
-            for (Numbers numbers : numbersRepository.findAll()) {
+            for (Numbers numbers : numbersFile.findAll()) {
                 String[] line = String.valueOf(numbers.getNumbers()).split("");
 
                 for (String s : line) {
@@ -199,24 +158,23 @@ public class NumbersServiceImpl implements NumbersService {
                     .sorted((a, b) -> a.getVarious() - b.getVarious())
                     .toList();
             result += nums1.getFirst().toString() + "\n";
-            return result;
+            System.out.println(result);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return "Заполните список.";
     }
 
     @Override
-    public String taskA5() {
+    public void taskA5() {
         String result;
         int lineSize = 10;
         try {
-            if (numbersRepository.findAll().isEmpty()) {
+            if (numbersFile.findAll().isEmpty()) {
                 throw new Exception("Заполните список.");
             }
             result = "5. Найти количество чисел, содержащих только четные цифры, а среди них —" +
                     "  количество чисел с равным числом четных и нечетных цифр.\n";
-            show(numbersRepository.findAll()
+            show(numbersFile.findAll()
                             .stream()
                             .filter((i) -> {
                                         String[] line = String.valueOf(i.getNumbers()).split("");
@@ -235,23 +193,22 @@ public class NumbersServiceImpl implements NumbersService {
                             )
                             .toList()
                     , result, lineSize);
-            return result;
+            System.out.println(result);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return "Заполните список.";
     }
 
     @Override
-    public String taskA6() {
+    public void taskA6() {
         String result;
         try {
-            if (numbersRepository.findAll().isEmpty()) {
+            if (numbersFile.findAll().isEmpty()) {
                 throw new Exception("Заполните список.");
             }
             result = "6. Найти число, цифры в котором идут в строгом порядке возрастания. Если" +
                     "  таких чисел несколько, найти первое из них.\n";
-            List<Numbers> list = numbersRepository.findAll()
+            List<Numbers> list = numbersFile.findAll()
                     .stream()
                     .filter((a) -> {
                                 String[] line = String.valueOf(a.getNumbers()).split("");
@@ -269,29 +226,28 @@ public class NumbersServiceImpl implements NumbersService {
                             }
                     )
                     .toList();
-            if (!numbersRepository.findAll().isEmpty()) {
+            if (!numbersFile.findAll().isEmpty()) {
                 result += "Вывод: id/number/length\n";
                 result += list.getFirst().getId() + "/" + list.getFirst().getNumbers() + "/" + String.valueOf(list.getFirst().getNumbers()).length() + "\n";
             } else {
                 result += "Список пуст.\n";
             }
-            return result;
+            System.out.println(result);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return "Заполните список.";
     }
 
     @Override
-    public String taskA7() {
+    public void taskA7() {
         String result;
         try {
-            if (numbersRepository.findAll().isEmpty()) {
+            if (numbersFile.findAll().isEmpty()) {
                 throw new Exception("Заполните список.");
             }
             result = "7. Найти число, состоящее только из различных цифр. Если таких чисел не-" +
                     "сколько, найти первое из них.\n";
-            List<Numbers> list = numbersRepository.findAll().stream()
+            List<Numbers> list = numbersFile.findAll().stream()
                     .filter((a) -> {
                                 String[] line = String.valueOf(a.getNumbers()).split("");
                                 for (int i = 0; i < line.length - 1; i++) {
@@ -309,29 +265,28 @@ public class NumbersServiceImpl implements NumbersService {
                                 return false;
                             }
                     ).toList();
-            if (!numbersRepository.findAll().isEmpty()) {
+            if (!numbersFile.findAll().isEmpty()) {
                 result += "Вывод: id/number/length\n";
                 result += "\t" + list.getFirst().getId() + "/" + list.getFirst().getNumbers() + "/" + String.valueOf(list.getFirst().getNumbers()).length() + "\n";
             } else {
                 result += "Список пуст.\n";
             }
-            return result;
+            System.out.println(result);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return "Заполните список.";
     }
 
     @Override
-    public String taskA8() {
+    public void taskA8() {
         String result;
         try {
-            if (numbersRepository.findAll().isEmpty()) {
+            if (numbersFile.findAll().isEmpty()) {
                 throw new Exception("Заполните список.");
             }
             result = "8. Среди чисел найти число-палиндром. Если таких чисел больше одного," +
                     "  найти второе.\n";
-            List<Numbers> list = numbersRepository.findAll().stream()
+            List<Numbers> list = numbersFile.findAll().stream()
                     .filter((a) -> {
                                 String num1 = String.valueOf(a.getNumbers());
                                 StringBuilder num2 = new StringBuilder(num1).reverse();
@@ -344,16 +299,45 @@ public class NumbersServiceImpl implements NumbersService {
             } else {
                 result += "Список пуст.\n";
             }
-            return result;
+            System.out.println(result);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return "Заполните список.";
+    }
+
+    @Override
+    public void taskA9() {
+        String result;
+        try {
+            result = "9. Найти корни квадратного уравнения. Параметры уравнения передавать" +
+                    " с командной строкой.\n";
+            result += "ax^2 + bx + c = 0\n";
+            System.out.println("Введите а (1):");
+            double a = getDouble();
+            System.out.println("Введите b (-8):");
+            double b = getDouble();
+            System.out.println("Введите c (15):");
+            double c = getDouble();
+            double D = b * b - (4 * a * c);
+            if (D > 0) {
+                double x1 = (-b - Math.sqrt(D)) / (2 * a);
+                double x2 = (-b + Math.sqrt(D)) / (2 * a);
+                result += "Корени уравнения: x1 = " + x1 + ", x2 = " + x2 + "\n";
+            } else if (D == 0) {
+                double x = -b / (2 * a);
+                result += "Уравнение имеет единственный корень: x = " + x + "\n";
+            } else {
+                result += "Уравнение не имеет действительных корней!" + "\n";
+            }
+            System.out.println(result);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private String show(List<Numbers> list, String result, int lineSize) {
         int count = 0;
-        result += "Вывод: number/length\n";
+        result = "Вывод: number/length\n";
         for (Numbers numbers : list) {
             result += "\t" + numbers.getNumbers() + "/" + String.valueOf(numbers.getNumbers()).length();
             count++;

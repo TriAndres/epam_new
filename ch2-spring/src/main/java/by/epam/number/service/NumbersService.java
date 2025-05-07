@@ -31,6 +31,4 @@ public interface NumbersService {
     String taskA7();
 
     String taskA8();
-
-    String taskA9();
 }
